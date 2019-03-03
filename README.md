@@ -1,4 +1,4 @@
 # CourseBin
-A website for sharing school course content.
+A website for sharing school-course content.
 
-*The xml file can be opened up on draw.io*
+**The xml file can be opened up on draw.io**
