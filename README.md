@@ -1,11 +1,12 @@
 # Course Project - Phase 1: Conceptual Database Design
 
 CS 2300-1A
+
 Cole Dieckhaus, Sierra Madrid, Thomas McKanna
 
-CourseBin
+__CourseBin__
 
-##Problem statement
+## Problem statement
 
 It can be frustrating to get stuck on a homework assignment when there are no 
 relevant resources to help you. By the time a student completes a course, they 
