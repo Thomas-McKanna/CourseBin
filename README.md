@@ -1,10 +1,9 @@
-# Course Project - Phase 1: Conceptual Database Design
-
 CS 2300-1A
 
 Cole Dieckhaus, Sierra Madrid, Thomas McKanna
 
-__CourseBin__
+# Course Project - Phase 1: Conceptual Database Design
+### CourseBin
 
 ## Problem statement
 
@@ -21,8 +20,7 @@ best stand out. This will provide a convenient way to access numerous study
 resources tailored to specific courses.
 
 
-
-
+## EER Diagram
 
 ![DB Diagram](phase_one.png)
 
