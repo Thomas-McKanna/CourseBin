@@ -3,7 +3,6 @@ CS 2300-1A
 Cole Dieckhaus, Sierra Madrid, Thomas McKanna
 
 # Course Project - Phase 1: Conceptual Database Design
-### CourseBin
 
 ## Problem statement
 
@@ -24,6 +23,13 @@ resources tailored to specific courses.
 
 ![DB Diagram](phase_one.png)
 
+The following assumptions have been made with regard to the above diagram:
+
+* A student does not need to have attended a school, taken any courses, or made any submissions to make an account.
+* Each course must be associated with a particular school.
+* Two courses that are about the same subject but are taught by different schools are considered different courses.
+* A submission must be associated with a particular course and a particular student.
+* A submission must have at least one piece of content (an uploaded file) associated with it.
 
 ## Functional Requirements
 
