@@ -33,8 +33,8 @@ The following assumptions have been made with regard to the above diagram:
 
 ## Functional Requirements
 
-Search and retrieve for content based on course name or school.
-* Involves Student, School, and Submission tables
+Search and retrieve for content based on course name or school
+* Involves Student, School, and Submission entities
 * Option to sort results by popularity or upload date
 
 
@@ -43,4 +43,7 @@ Add an account
 
 
 User submits content to be uploaded
-* Involves Student, School, Course, and Submission tables
+* Involves Student, School, Course, and Submission entities
+
+Rate submissions
+* Involves Student and Submission entities
