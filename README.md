@@ -14,7 +14,7 @@ These files could be useful study materials to other students.
 
 Our project idea is to create a database-driven website of course content
 collected by students. Users can search for materials shared by other students 
-or upload content of their own. Submissions can be rated by other users so that the 
+and upload content of their own. Submissions can be rated by other users so that the 
 best stand out. This will provide a convenient way to access numerous study 
 resources tailored to specific courses.
 
