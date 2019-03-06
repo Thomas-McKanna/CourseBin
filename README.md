@@ -42,7 +42,7 @@ Search and retrieve content for specific course by name or school name
 * Option to sort results by popularity or upload date
 
 Create an account
-* Involves Student or Admin table
+* Involves the Student or Admin entity
 
 User submits content to be uploaded
 * Involves Student, School, Course, and Submission entities
