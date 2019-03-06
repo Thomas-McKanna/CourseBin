@@ -33,32 +33,20 @@ The following assumptions have been made with regard to the above diagram:
 
 ## Functional Requirements
 
-Search and retrieve content for specific school by school name or location
+Search and retrieve content by course name or school name
 * Option to sort results by popularity or upload date
-* Involves Student, School, and Submission entities
-* The student searches for content from a specifc school
-* The school offers courses that have submissions
-* The submissions are materials that the student it searching for
-
-Search and retrieve content for specific course by name or school name
-* Option to sort results by popularity or upload date
-* Involves Student, School, and Submission entities
-* The student searches for content from a specific course
-* The school offers courses that have submissions
-* The submissions are materials that the student is searching for
+* Involves Student, Course, School, and Submission entities
+* The *student* searches for *submissions* associated with a specifc *school* and/or *course*
 
 Create an account
 * Involves the Student or Admin entity
-* A student can create an account
-* An admin can create an account
+* An account can be created for a *student*
+* An account can be created for an *administrator*
 
-User submits content to be uploaded
+Student submits content to be uploaded
 * Involves Student, School, Course, and Submission entities
-* The student uploads the submission
-* The course is what the submission is about
-* The school offers the course the submission is about
+* The *student* uploads a *submission* containing content associated with a *school* and *course*
 
 Rate submissions based on relavancy and accuracy 
 * Involves Student and Submission entities
-* The student rates the submission
-* The submission is rated by the student
+* The *student* rates a *submission*
