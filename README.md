@@ -38,14 +38,14 @@ Search and retrieve content for specific school by school name or location
 * Involves Student, School, and Submission entities
 * The student searches for content from a specifc school
 * The school offers courses that have submissions
-* The submissions are those that the student it searching for
+* The submissions are materials that the student it searching for
 
 Search and retrieve content for specific course by name or school name
 * Option to sort results by popularity or upload date
 * Involves Student, School, and Submission entities
 * The student searches for content from a specific course
 * The school offers courses that have submissions
-* The submissions are those that the student is searching for
+* The submissions are materials that the student is searching for
 
 Create an account
 * Involves the Student or Admin entity
