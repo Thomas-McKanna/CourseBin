@@ -1,0 +1,22 @@
+{
+  "name": "coursebin",
+  "version": "1.0.0",
+  "description": "CS 2300-1A",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thomas-McKanna/CourseBin.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Thomas-McKanna/CourseBin/issues"
+  },
+  "homepage": "https://github.com/Thomas-McKanna/CourseBin#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
