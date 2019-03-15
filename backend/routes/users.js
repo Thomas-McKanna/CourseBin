@@ -1,4 +1,5 @@
 var express = require('express');
+var db = require('../db.js')
 var router = express.Router();
 
 /* GET users listing. */
@@ -7,13 +8,13 @@ router.get('/', function(req, res, next) {
   //res.send('respond with a resource');
 
   // And insert something like this instead:
-  res.json([{
-  	id: 1,
-  	username: "samsepi0l"
-  }, {
-  	id: 2,
-  	username: "D0loresH4ze"
-  }]);
+  connection = db.get()
+  connection.query('SELECT * FROM `customers`', function (error, results, fields) {
+    // error will be an Error if one occurred during the query
+    // results will contain the results of the query
+    // fields will contain information about the returned results fields (if any)
+    res.json(results)
+  });
 });
 
 module.exports = router;
