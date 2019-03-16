@@ -4,6 +4,15 @@ Cole Dieckhaus, Sierra Madrid, Thomas McKanna
 
 # Course Project - Phase 1: Conceptual Database Design
 
+## Roadmap
+
+1. Convert ER diagram to set of relations 
+2. Create pseudocode for all the major functions of our application
+3. Create MySQL schema creation script
+4. Write out the structure of the SQL queries that will be used
+5. Implement Express API for executing the queries of step 4.
+6. Implement React frontend.
+
 ## Problem statement
 
 It can be frustrating to get stuck on a homework assignment when there are no 
