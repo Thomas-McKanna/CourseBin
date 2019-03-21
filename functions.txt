@@ -1,0 +1,20 @@
+- search_for_submission
+// Uses search parameters to return submissions
+- get_content
+// Given a submission, returns the content associated with it
+- add_user
+// Adds a user
+- rate
+// When the user rates a piece of content, it gets recorded
+- add_school
+// Adds school to database
+- add_class
+// Adds class to database
+- upload_submission
+// Uploads a submission
+- delete_submission
+// Deletes a submission
+- modify_submission
+// Modifies a submission
+- merge_courses
+// If two courses refer to the same course, this offers ability to merge them
