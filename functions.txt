@@ -1,12 +1,18 @@
 - search_for_submission
 // Uses search parameters to return submissions
-Input: Institution name, optional: course name, professor, semester, user, what to sort by 
-Steps:
+Input: Institution name, optional: course name and number, professor, semester, user, what to sort by 
+Steps: Check if there any institution names that match the searched institution name
+      Check if there any course names and numbers that match the searched course name and number
+      Check if there any professor names that match the searched professor name
+      Check if there any usernames that match the searched username
+      Retrieve information from institution table, course table, and submission table
+      Match checked information to join of tables
+      Display search results
 
 - get_content
 // Given a submission, returns the content associated with it
 Input: none
-Steps:
+Steps: 
 
 - add_user
 // Adds a user
@@ -18,10 +24,11 @@ Steps:
 Input:
 Steps:
 
-- add_school
-// Adds school to database
-Input:
-Steps:
+- add_institution
+// Adds Institution to database
+Input: Institution name, city, state, country
+Steps: check if institution name does not exist in institution table
+       if the institution does not exist add institution to the institution table
 
 - add_class
 // Adds class to database
@@ -30,8 +37,8 @@ Steps:
 
 - upload_submission
 // Uploads a submission
-Input:
-Steps:
+Input: institution name, course name(department, course number), projessor, semester
+Steps: 
 
 - delete_submission
 // Deletes a submission
