@@ -1,20 +1,49 @@
 - search_for_submission
 // Uses search parameters to return submissions
+Input: Institution name, optional: course name, professor, semester, user, what to sort by 
+Steps:
+
 - get_content
 // Given a submission, returns the content associated with it
+Input: none
+Steps:
+
 - add_user
 // Adds a user
+Input: 
+Steps:
+
 - rate
 // When the user rates a piece of content, it gets recorded
+Input:
+Steps:
+
 - add_school
 // Adds school to database
+Input:
+Steps:
+
 - add_class
 // Adds class to database
+Input:
+Steps:
+
 - upload_submission
 // Uploads a submission
+Input:
+Steps:
+
 - delete_submission
 // Deletes a submission
+Input:
+Steps:
+
 - modify_submission
 // Modifies a submission
+Input:
+Steps:
+
 - merge_courses
 // If two courses refer to the same course, this offers ability to merge them
+Input:
+Steps:
