@@ -42,10 +42,16 @@ The following assumptions have been made with regard to the above diagram:
 
 ## Functional Requirements
 
-Search and retrieve content by course name or school name
-* Option to sort results by popularity or upload date
-* Involves Student, Course, School, and Submission entities
-* The *student* searches for *submissions* associated with a specifc *school* and/or *course*
+### Search for submissions
+* Find submissions based on a user's search criteria, with the option of ordering the results by rating or date. Will use the tables *submisions*, *courses*, *schools*, and *students*.
+* Inputs: course number, school name, user name (each of these is optional)
+
+Steps:
+1. User fills out form and submits it.
+2. Form contents are used to generate query which checks if there are any submissions which meet the search criteria (this will involve joining *submisions*, *courses*, *schools*, and *students* and applying a conditional)
+3. Results are returned to the user via a JSON object.
+4. The JSON object is parsed and used to generate the list of submissions displayed on the user's screen.
+
 
 Create an account
 * Involves the Student or Admin entity
