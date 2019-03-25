@@ -44,7 +44,7 @@ The following assumptions have been made with regard to the above diagram:
 
 ### Search for courses
 * Find submissions based on a user's search criteria, with the option of ordering the results by rating or date. Will use the tables *courses*, *schools*, and *students*.
-* Inputs: course number, school name, user name (each of these is optional)
+* Inputs: course id, school id, user name (each of these is optional)
 
 Steps:
 1. User fills out form and submits it.
@@ -81,18 +81,64 @@ Steps:
 2. The rating and the associated content are combined and inserted into the database.
 3. The rating is immediately updated on the client side (superficially); reloading the page retrieves the actual new rating.
 
-## OLD
+### Add course
+* If, while creating a submission, the course associated with the submission is not yet in the database, it is added with this function. Will use the *courses* and *schools* tables.
+Inputs: school id, course name, year, semester, professor name
 
-Create an account
-* Involves the Student or Admin entity
-* An account can be created for a *student*
-* An account can be created for an *administrator*
+Steps:
+1. The user clicks the "make a submission" button on the home page, redirecting them to a form.
+2. The user fills out the form, entering a school, course name, professor, year, semester, and professor name, and then submits the form.
+3. The contents of the form are queried to ensure an exactly matching course does not already exist. If the course does exist, the user is re-routing to the courses URL, where the user can click a button for creating a submission. If the course does not exist, the contents of the form are used into insert the course into the database.
+4. The user is redirected to the new course URL.
 
+### Add submission
+* Allows the user to add a submission that is associated with a particular course. Will use the *courses*, *students*, and *content* tables.
+Inputs: course id, description, a series of one or more file uploads.
 
-Student submits content to be uploaded
-* Involves Student, School, Course, and Submission entities
-* The *student* uploads a *submission* containing content associated with a *school* and *course*
+Steps:
+1. The user clicks on the "add submission" button on any course's URL.
+2. The user is redirected to a form which has a field for description, as well as button which, when clicked, open up a file explorer for the user to choose a file from. Upon selecting a file, another, separate, button is created, allowing for multiple files to be uploaded.
+3. The user submits the form; basic checks limiting the size of files being uploaded are performed.
+4. The files are uploaded and put it the proper folder on the backend, and the submission is added to the database.
 
-Rate submissions based on relavancy and accuracy 
-* Involves Student and Submission entities
-* The *student* rates a *submission*
+### Delete submission (user control panel)
+* Allows a user to delete their own submissions. Will use the *courses*, *students*, and *content* tables.
+Inputs: submission id.
+
+Steps:
+1. The user navigates to their personal panel, which lists all the submissions they have made.
+2. The user clicks on the "delete submission" button associated with the submission they want to be deleted.
+3. The submission id is used to delete the submission from the database, and cascade the delete such that it removes all content associated with the submission, and removes the submission from the associated course.
+
+### Modify submission (user control panel)
+* Allows a user to modify their own submissions. Will use the *courses*, *students*, and *content* tables.
+Inputs: submission id.
+
+Steps:
+1. The user navigates to their personal panel, which lists all the submissions they have made.
+2. The user clicks on the "modify submission" button associated with the submission they want to be deleted.
+3. The submission id is used to retrieve the content and description associated with the submission. This information is reconstructed into a similar format as when the submission was created.
+4. On this page, the user can click on the "remove file" button next to any given existing content item, or the "add file" button to add a new file. The description is also editable.
+5. Submitting the form causes the submission to be updated in the database.
+
+### Add user
+* Create a new account for a user, allowing them to create submissions and rate content. Will use the *students* table.
+Inputs: username, password.
+
+Steps:
+1. User navigates to the login page either by clicking the "create account" button on the homepage, or by being redirect after attempting to access features only available to users.
+2. User inputs their desired username and password in the form and submits it.
+3. The password is combined with a random salt and has its hash taken.
+4. The username, hash, and salt are stored in the database.
+5. An authentication token is sent to the user.
+
+### Log in
+* The user logs in, allowing them to create submissions and rate content. Will use the *students* table.
+Inputs: username, password.
+
+Steps:
+1. User click on the "log in" button on the homepage.
+2. User enters username and password and submits form.
+3. The password is combined with the salt associated with the username (if the username does not exist, return error) and hashed.
+4. The hash is compared with the hash in the database (if not the same, return error).
+5. An authentication token is sent to the user.
