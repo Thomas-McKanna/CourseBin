@@ -30,7 +30,7 @@ resources tailored to specific courses.
 
 ## EER Diagram
 
-![DB Diagram](phase_one.png)
+![DB Diagram](phase_two.png)
 
 The following assumptions have been made with regard to the above diagram:
 
