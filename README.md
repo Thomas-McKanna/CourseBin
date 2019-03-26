@@ -30,6 +30,14 @@ The following assumptions have been made with regard to the above diagram:
 * A submission must be associated with a particular course and a particular student.
 * A submission must have at least one piece of content (an uploaded file) associated with it.
 
+## Relations Diagram
+
+![Relations Diagram](Relation_Set.png)
+
+## Tables (from MySQL Workbench)
+
+![MySQL Workbench](mysql_workbench_tables.png)
+
 ## Functional Requirements
 
 ### Search for courses
