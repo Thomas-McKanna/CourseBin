@@ -2,7 +2,7 @@ CS 2300-1A
 
 Cole Dieckhaus, Sierra Madrid, Thomas McKanna
 
-# Course Project - Phase 1: Conceptual Database Design
+# CS 2300 Course Project - Coursebin
 
 ## Resources
 
@@ -12,7 +12,7 @@ Cole Dieckhaus, Sierra Madrid, Thomas McKanna
 
 [Building REST API with Express](https://www.robinwieruch.de/node-express-server-rest-api/)
 
-[Authenticating usering using JSON web tokens](https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens)
+[Authenticating users using JSON web tokens](https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens)
 
 ## Roadmap
 
