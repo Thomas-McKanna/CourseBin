@@ -4,6 +4,16 @@ Cole Dieckhaus, Sierra Madrid, Thomas McKanna
 
 # Course Project - Phase 1: Conceptual Database Design
 
+## Resources
+
+[Official  React Tutorial 1-12](https://reactjs.org/docs/hello-world.html)
+
+[Express Introduction (Routing/Writing Middleware/Using Middleware](https://expressjs.com/en/guide/routing.html)
+
+[Building REST API with Express](https://www.robinwieruch.de/node-express-server-rest-api/)
+
+[Authenticating usering using JSON web tokens](https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens)
+
 ## Roadmap
 
 1. Convert ER diagram to set of relations 
