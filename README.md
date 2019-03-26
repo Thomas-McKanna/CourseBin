@@ -4,25 +4,6 @@ Cole Dieckhaus, Sierra Madrid, Thomas McKanna
 
 # CS 2300 Course Project - Coursebin
 
-## Resources
-
-[Official  React Tutorial 1-12](https://reactjs.org/docs/hello-world.html)
-
-[Express Introduction (Routing/Writing Middleware/Using Middleware](https://expressjs.com/en/guide/routing.html)
-
-[Building REST API with Express](https://www.robinwieruch.de/node-express-server-rest-api/)
-
-[Authenticating users using JSON web tokens](https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens)
-
-## Roadmap
-
-1. Convert ER diagram to set of relations 
-2. Create pseudocode for all the major functions of our application
-3. Create MySQL schema creation script
-4. Write out the structure of the SQL queries that will be used
-5. Implement Express API for executing the queries of step 4.
-6. Implement React frontend.
-
 ## Problem statement
 
 It can be frustrating to get stuck on a homework assignment when there are no 
@@ -36,7 +17,6 @@ collected by students. Users can search for materials shared by other students
 and upload content of their own. Submissions can be rated by other users so that the 
 best stand out. This will provide a convenient way to access numerous study 
 resources tailored to specific courses.
-
 
 ## EER Diagram
 
@@ -152,3 +132,29 @@ Steps:
 3. The password is combined with the salt associated with the username (if the username does not exist, return error) and hashed.
 4. The hash is compared with the hash in the database (if not the same, return error).
 5. An authentication token is sent to the user.
+
+## Submission Flowchart
+
+The follwing flowchart lays out how creating submissions will be executed by the web app.
+
+![Submission Flowchart](submission_flowchart.png)
+
+## Roadmap
+
+1. Convert ER diagram to set of relations 
+2. Create pseudocode for all the major functions of our application
+3. Create MySQL schema creation script
+4. Write out the structure of the SQL queries that will be used
+5. Implement Express API for executing the queries of step 4.
+6. Implement React frontend.
+
+## Resources
+
+[Official  React Tutorial 1-12](https://reactjs.org/docs/hello-world.html)
+
+[Express Introduction (Routing/Writing Middleware/Using Middleware](https://expressjs.com/en/guide/routing.html)
+
+[Building REST API with Express](https://www.robinwieruch.de/node-express-server-rest-api/)
+
+[Authenticating users using JSON web tokens](https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens)
+
