@@ -36,7 +36,7 @@ The following assumptions have been made with regard to the above diagram:
 
 ## Tables (from MySQL Workbench)
 
-![MySQL Workbench](mysql_workbench_tables.png)
+![MySQL Workbench](mysql_workbench_tables.PNG)
 
 ## Functional Requirements
 
