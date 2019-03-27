@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `development`.`courses` (
   `school` CHAR(6) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `code_idx` (`school` ASC) VISIBLE,
-  CONSTRAINT `school_code`
+  CONSTRAINT `courses_school_code`
     FOREIGN KEY (`school`)
     REFERENCES `development`.`schools` (`school_code`)
     ON DELETE CASCADE
@@ -61,7 +61,7 @@ DROP TABLE IF EXISTS `development`.`users` ;
 CREATE TABLE IF NOT EXISTS `development`.`users` (
   `username` VARCHAR(30) NOT NULL,
   `hash` VARCHAR(100) NOT NULL,
-  `date_created` DATE GENERATED ALWAYS AS (CURDATE()) VIRTUAL,
+  `date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `profile_img_url` VARCHAR(100) NULL,
   `student_flag` TINYINT NOT NULL,
   `admin_flag` TINYINT NOT NULL,
@@ -79,12 +79,12 @@ CREATE TABLE IF NOT EXISTS `development`.`attends` (
   `school_code` CHAR(6) NOT NULL,
   PRIMARY KEY (`username`, `school_code`),
   INDEX `school_code_idx` (`school_code` ASC) VISIBLE,
-  CONSTRAINT `username`
+  CONSTRAINT `attends_username`
     FOREIGN KEY (`username`)
     REFERENCES `development`.`users` (`username`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `school_code`
+  CONSTRAINT `attends_school_code`
     FOREIGN KEY (`school_code`)
     REFERENCES `development`.`schools` (`school_code`)
     ON DELETE CASCADE
@@ -99,19 +99,19 @@ DROP TABLE IF EXISTS `development`.`submissions` ;
 
 CREATE TABLE IF NOT EXISTS `development`.`submissions` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `date_created` DATE GENERATED ALWAYS AS (CURDATE()) VIRTUAL,
+  `date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `description` VARCHAR(200) NULL,
   `username` VARCHAR(30) NOT NULL,
   `course_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `username_idx` (`username` ASC) VISIBLE,
   INDEX `course_id_idx` (`course_id` ASC) VISIBLE,
-  CONSTRAINT `username`
+  CONSTRAINT `submissions_username`
     FOREIGN KEY (`username`)
     REFERENCES `development`.`users` (`username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `course_id`
+  CONSTRAINT `submissions_course_id`
     FOREIGN KEY (`course_id`)
     REFERENCES `development`.`courses` (`id`)
     ON DELETE NO ACTION
@@ -129,12 +129,12 @@ CREATE TABLE IF NOT EXISTS `development`.`has_taken` (
   `course_id` INT NOT NULL,
   PRIMARY KEY (`username`, `course_id`),
   INDEX `course_id_idx` (`course_id` ASC) VISIBLE,
-  CONSTRAINT `username`
+  CONSTRAINT `has_taken_username`
     FOREIGN KEY (`username`)
     REFERENCES `development`.`users` (`username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `course_id`
+  CONSTRAINT `has_taken_course_id`
     FOREIGN KEY (`course_id`)
     REFERENCES `development`.`courses` (`id`)
     ON DELETE NO ACTION
@@ -151,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `development`.`content` (
   `submission_id` INT NOT NULL,
   `url` VARCHAR(200) NOT NULL,
   PRIMARY KEY (`submission_id`, `url`),
-  CONSTRAINT `submission_id`
+  CONSTRAINT `content_submission_id`
     FOREIGN KEY (`submission_id`)
     REFERENCES `development`.`submissions` (`id`)
     ON DELETE NO ACTION
@@ -171,12 +171,12 @@ CREATE TABLE IF NOT EXISTS `development`.`ratings` (
   `rating` INT NOT NULL,
   PRIMARY KEY (`submission_id`, `url`, `username`),
   INDEX `username_idx` (`username` ASC) VISIBLE,
-  CONSTRAINT `submission_id_url`
+  CONSTRAINT `ratings_submission_id_url`
     FOREIGN KEY (`submission_id` , `url`)
     REFERENCES `development`.`content` (`submission_id` , `url`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `username`
+  CONSTRAINT `ratings_username`
     FOREIGN KEY (`username`)
     REFERENCES `development`.`users` (`username`)
     ON DELETE NO ACTION

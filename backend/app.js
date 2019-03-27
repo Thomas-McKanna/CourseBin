@@ -1,44 +1,37 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+require('dotenv').config(); // Sets up dotenv as soon as our application starts
+
+var express = require('express'); // web framework
+var path = require('path'); // utilities for working with file and directory paths
+var bodyParser = require('body-parser'); // parses incoming request bodies
+var logger = require('morgan'); // logs requests to console
+
+var db = require('./db') // allows easy access to database connection
 
 var usersRouter = require('./routes/users');
 
-var db = require('./db')
-
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+const environment = process.env.NODE_ENV; // development
+const stage = require('./config')[environment];
 
 app.use('/users', usersRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+if (environment !== 'production') {
+  app.use(logger('dev'));
+}
+
+app.listen(`${stage.port}`, () => {
+  console.log(`Server now listening at localhost:${stage.port}`);
 });
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-module.exports = app;
 
 // Connect to MySQL on start
 
@@ -50,3 +43,5 @@ db.connect(db.MODE_PRODUCTION, function(err) {
     console.log('Connected to MySQL database.')
   }
 })
+
+module.exports = app;
