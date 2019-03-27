@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const db = require('./db');
 
 module.exports = {
     validateToken: (req, res, next) => {
@@ -29,5 +30,18 @@ module.exports = {
             };
             res.status(401).send(result);
         }
+    },
+
+    getDbConnection: (req, res, next) => {
+        connection = db.get()
+        if (connection) {
+            req.conn = connection;
+            next();
+        } else {
+            status = 500;
+            result.status = status;
+            result.error = "could not connect to database";
+            res.status(status).send(result);
+        } 
     }
 };

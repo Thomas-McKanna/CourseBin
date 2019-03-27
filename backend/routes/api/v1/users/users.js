@@ -11,7 +11,7 @@ module.exports = {
     getUserInfo: (req, res) => {
         let result = {};
         let status = 200; // status code: OK
-        connection = db.get()
+
         res.status(status).send("TODO: get " 
             + req.params.username + "'s information")
     },
@@ -19,139 +19,123 @@ module.exports = {
     addUser: (req, res) => {
         let result = {};
         let status = 201; // status code: Created
-        connection = db.get()
-        if (connection) {
-            const username = req.body.username;
-            const password = req.body.password;
-            bcrypt.hash(password, stage.saltingRounds, function(err, hash) {
-                if (!err) {
-                    var sql = "INSERT INTO users (username, hash, student_flag, "
-                        + "admin_flag) VALUES (?, ?, 1, 0)"
-                    var inserts = [username, hash];
-                    sql = mysql.format(sql, inserts);
 
-                    connection.query(sql, function (error, results, fields) {
-                        if (!error) {
-                            result.status = status;
-                            result.result = "user created";
-                        } else {
-                            status = 500;
-                            result.status = status;
-                            result.error = error;
-                        }
-                        res.status(status).send(result);
-                    }); 
-                } else {
-                    console.log(stage.saltingRounds);
-                    result.status = 500;
-                    result.error = err;
+        const username = req.body.username;
+        const password = req.body.password;
+
+        bcrypt.hash(password, stage.saltingRounds, function(err, hash) {
+            if (!err) {
+                var sql = "INSERT INTO users (username, hash, student_flag, "
+                    + "admin_flag) VALUES (?, ?, 1, 0)"
+                var inserts = [username, hash];
+                sql = mysql.format(sql, inserts);
+
+                req.conn.query(sql, function (error, results, fields) {
+                    if (!error) {
+                        result.status = status;
+                        result.result = "user created";
+                    } else {
+                        status = 500;
+                        result.status = status;
+                        result.error = error;
+                    }
                     res.status(status).send(result);
-                }   
-            });        
-        } else {
-            status = 500;
-            result.status = status;
-            result.error = "could not connect to database";
-            res.status(status).send(result);
-        }
+                }); 
+            } else {
+                console.log(stage.saltingRounds);
+                result.status = 500;
+                result.error = err;
+                res.status(status).send(result);
+            }   
+        });        
     },
 
     login: (req, res) => {
         let result = {};
         let status = 200; // status code: OK
-        connection = db.get()
-        if(connection) {
-            const username = req.body.username;
-            const password = req.body.password;
 
-            var sql = "SELECT hash, admin_flag FROM users WHERE username = ?"
-            var inserts = [username];
-            sql = mysql.format(sql, inserts);
+        const username = req.body.username;
+        const password = req.body.password;
 
-            connection.query(sql, function (error, results, fields) {
-                if (!error && results[0]) {
-                    bcrypt.compare(password, results[0].hash).then(match => {
-                        if (match) {
-                            // Create a token
-                            const payload = { user: username, 
-                                              admin: results[0].admin_flag };
-                            const options = { expiresIn: '1d', issuer: 'coursebin' };
-                            const secret = process.env.JWT_SECRET;
-                            const token = jwt.sign(payload, secret, options);
-            
-                            result.token = token;
-                            result.status = status;
-                            result.result = username;
-                        } else {
-                            status = 401;
-                            result.status = status;
-                            result.error = 'Authentication error';
-                        }
-                        res.status(status).send(result);
-                    }).catch(err => {
-                        status = 500;
+        var sql = "SELECT hash, admin_flag FROM users WHERE username = ?"
+        var inserts = [username];
+        sql = mysql.format(sql, inserts);
+
+        req.conn.query(sql, function (error, results, fields) {
+            if (!error && results[0]) {
+                bcrypt.compare(password, results[0].hash).then(match => {
+                    if (match) {
+                        // Create a token
+                        const payload = { user: username, 
+                                        admin: results[0].admin_flag };
+                        const options = { expiresIn: '1d', issuer: 'coursebin' };
+                        const secret = process.env.JWT_SECRET;
+                        const token = jwt.sign(payload, secret, options);
+        
+                        result.token = token;
                         result.status = status;
-                        result.error = err;
-                        res.status(status).send(result);
-                    });
-                } else {
-                    status = 404;
-                    result.status = status;
-                    result.error = error;
+                        result.result = username;
+                    } else {
+                        status = 401;
+                        result.status = status;
+                        result.error = 'Authentication error';
+                    }
                     res.status(status).send(result);
-                }
-            });
-        } else {
-            status = 500;
-            result.status = status;
-            result.error = "could not connect to database";
-            res.status(status).send(result);
-        } 
+                }).catch(err => {
+                    status = 500;
+                    result.status = status;
+                    result.error = err;
+                    res.status(status).send(result);
+                });
+            } else {
+                status = 404;
+                result.status = status;
+                result.error = error;
+                res.status(status).send(result);
+            }
+        });
     },
 
     updateUsername: (req, res) => {
         let result = {};
         let status = 200; // status code: OK
-        connection = db.get()
-        res.status(status).send("TODO: update username from " 
-            + req.params.oldUsername + " to " + req.params.newUsername)
+
+        const payload = req.decoded;
+        if (payload && payload.admin === 1) {
+            res.status(status).send("TODO: update username from " 
+                + req.params.oldUsername + " to " + req.params.newUsername)
+        } else {
+            // make sure the user is updating their own username
+        }
     },
     
     deleteUser: (req, res) => {
         let result = {};
         let status = 200; // status code: OK
-        connection = db.get()
-        if (connection) {
-            const payload = req.decoded;
-            console.log(payload);
-            if (payload && payload.admin === 1) {
-                var sql = "DELETE FROM users WHERE username = ?"
-                var inserts = [req.params.username];
-                sql = mysql.format(sql, inserts);
+        
+        const payload = req.decoded;
+        if (payload && payload.admin === 1) {
+            var sql = "DELETE FROM users WHERE username = ?"
+            var inserts = [req.params.username];
+            sql = mysql.format(sql, inserts);
 
-                connection.query(sql, function (error, results, fields) {
-                    if (!error) {
-                        status = 200;
-                        result.status = status;
-                        result.result = results;
-                    } else {
-                        status = 404;
-                        result.status = status;
-                        result.error = error; 
-                    }
-                    res.status(status).send(result);
-                });
-            } else {
-                status = 401;
-                result.status = status;
-                result.error = 'Authentication error';
+            connection.query(sql, function (error, results, fields) {
+                if (!error) {
+                    status = 200;
+                    result.status = status;
+                    result.result = results;
+                } else {
+                    status = 404;
+                    result.status = status;
+                    result.error = error; 
+                }
                 res.status(status).send(result);
-            }
+            });
         } else {
-            status = 500;
+            status = 401;
             result.status = status;
-            result.error = "could not connect to database";
+            result.error = 'Authentication error';
             res.status(status).send(result);
-        }
+        } 
     },
 }
