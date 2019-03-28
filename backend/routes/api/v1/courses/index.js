@@ -4,7 +4,7 @@ var courses = require('./courses');
 
 router.get('/:courseId', courses.getCourse)
         .post('/', validateToken, courses.addCourse)
-        .put('/:courseId', validateToken, courses.modifyCourse)
+        .put('/', validateToken, courses.modifyCourse)
         .delete('/:courseId', validateToken, courses.deleteCourse);
 
 module.exports = router;

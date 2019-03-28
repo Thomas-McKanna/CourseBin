@@ -1,3 +1,5 @@
+const mysql = require('mysql')
+
 const db = require('../db')
 
 module.exports = {
@@ -5,15 +7,52 @@ module.exports = {
         let result = {};
         let status = 200; // status code: OK
 
-        res.status(status).send("TODO: get info for course with id " 
-                + req.params.courseId)
+        var sql = "SELECT number, name, year, semester, professor, school_name"
+            + " FROM courses AS c LEFT JOIN schools AS s ON c.school = s.school_code"
+            + " WHERE c.id = ?"
+            var inserts = [req.params.courseId];
+            sql = mysql.format(sql, inserts);
+
+        connection.query(sql, function (error, results, fields) {
+            if (!error) {
+                status = 200;
+                result.status = status;
+                result.result = results;
+            } else {
+                status = 404;
+                result.status = status;
+                result.error = error; 
+            }
+            res.status(status).send(result);
+        });
     },
 
     addCourse: (req, res) => {
         let result = {};
         let status = 200; // status code: OK
 
-        res.status(status).send("TODO: add course")
+        var sql = "INSERT INTO courses (number, name, year, semester, professor, school)"
+            + " VALUES (?, ?, ?, ?, ?, ?)"
+            var inserts = [req.body.number,
+                           req.body.name,
+                           req.body.year,
+                           req.body.semester,
+                           req.body.professor,
+                           req.body.schoolCode];
+            sql = mysql.format(sql, inserts);
+
+        connection.query(sql, function (error, results, fields) {
+            if (!error) {
+                status = 200;
+                result.status = status;
+                result.result = results;
+            } else {
+                status = 404;
+                result.status = status;
+                result.error = error; 
+            }
+            res.status(status).send(result);
+        });
     },
 
     modifyCourse: (req, res) => {
@@ -22,8 +61,29 @@ module.exports = {
 
         const payload = req.decoded;
         if (payload && payload.admin === 1) {
-            res.status(status).send("TODO: update info for course with id " 
-                + req.params.courseId)
+            var sql = "UPDATE courses SET number=?, name=?, year=?, semester=?," 
+                + " professor=?, school=? WHERE id = ?" 
+            var inserts = [req.body.number,
+                           req.body.name,
+                           req.body.year,
+                           req.body.semester,
+                           req.body.professor,
+                           req.body.schoolCode,
+                           req.body.id];
+            sql = mysql.format(sql, inserts);
+
+            connection.query(sql, function (error, results, fields) {
+                if (!error) {
+                    status = 200;
+                    result.status = status;
+                    result.result = results;
+                } else {
+                    status = 404;
+                    result.status = status;
+                    result.error = error; 
+                }
+                res.status(status).send(result);
+            });
         }
     },
     
@@ -33,8 +93,22 @@ module.exports = {
 
         const payload = req.decoded;
         if (payload && payload.admin === 1) {
-            res.status(status).send("TODO: delete course with id " 
-                + req.params.courseId)
+            var sql = "DELETE FROM courses WHERE id = ?" 
+            var inserts = [req.params.courseId];
+            sql = mysql.format(sql, inserts);
+
+            connection.query(sql, function (error, results, fields) {
+                if (!error) {
+                    status = 200;
+                    result.status = status;
+                    result.result = results;
+                } else {
+                    status = 404;
+                    result.status = status;
+                    result.error = error; 
+                }
+                res.status(status).send(result);
+            });
         }
     },
 }
