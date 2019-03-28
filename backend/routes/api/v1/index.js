@@ -8,5 +8,6 @@ router.use('/rate', require('./rate'));
 router.use('/search', require('./search'));
 router.use('/submissions', require('./submissions'));
 router.use('/users', require('./users'));
+router.use('/upload', require('./upload'));
 
 module.exports = router;

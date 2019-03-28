@@ -43,5 +43,5 @@ module.exports = {
             result.error = "could not connect to database";
             res.status(status).send(result);
         } 
-    }
+    },
 };
