@@ -1,1 +1,4 @@
-SELECT  FROM (SELECT  FROM development.submissions AS S WHERE S.username = 'test') AS S_DER LEFT JOIN courses AS C ON S_DER.course_id = C.id LEFT JOIN (SELECT submission_id, SUM(rating) FROM development.content NATURAL JOIN development.ratings) AS RCNT ON S_DER.id = RCNT.submission_id WHERE number='CS2300' AND year='2019' AND semester='spring' AND professor='gosnell' AND school='002517' ORDER BY date_created;
+SELECT * FROM (SELECT * FROM submissions AS S WHERE S.username = 'test') AS S_DER 
+	LEFT JOIN courses AS C ON S_DER.course_id = C.id 
+    LEFT JOIN (SELECT submission_id, SUM(rating) FROM development.content NATURAL JOIN development.ratings) AS RCNT ON S_DER.id = RCNT.submission_id 
+    WHERE number='CS2300' AND year='2019' AND semester='spring' AND professor='gosnell' AND school='002517' ORDER BY date_created;

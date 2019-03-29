@@ -5,9 +5,9 @@ class App extends Component {
   state = {users: []}
 
   componentDidMount() {
-    fetch('/users')
+    fetch('/api/v1/courses/1')
       .then(res => res.json())
-      .then(users => this.setState({ users }));
+      .then(users => console.log("hllo"));
   }
 
   render() {
@@ -15,7 +15,7 @@ class App extends Component {
       <div className="App">
         <h1>Users</h1>
         {this.state.users.map(user =>
-          <div key={user.customerNumber}>{user.customerName}</div>
+          <div>{user}</div>
         )}
       </div>
     );

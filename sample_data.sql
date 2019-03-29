@@ -31,7 +31,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `content` WRITE;
 /*!40000 ALTER TABLE `content` DISABLE KEYS */;
-INSERT INTO `content` VALUES (1,'a/b/c'),(1,'d/e/f');
+INSERT INTO `content` VALUES (1,'abc'),(1,'def');
 /*!40000 ALTER TABLE `content` ENABLE KEYS */;
 UNLOCK TABLES;
 
