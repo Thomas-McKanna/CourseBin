@@ -9,5 +9,6 @@ router.use('/search', require('./search'));
 router.use('/submissions', require('./submissions'));
 router.use('/users', require('./users'));
 router.use('/upload', require('./upload'));
+router.use('/download', require('./download'));
 
 module.exports = router;
