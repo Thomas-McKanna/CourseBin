@@ -67,7 +67,7 @@ module.exports = {
             + order_clause;
 
         connection.query(sql, function (error, results, fields) {
-            if (!error) {
+            if (!error && results[0]) {
                 status = 200;
                 result.status = status;
                 result.result = results;
@@ -75,6 +75,7 @@ module.exports = {
                 status = 404;
                 result.status = status;
                 result.error = error; 
+                result.message = "The search may not have produced any results."
             }
             res.status(status).send(result);
         });

@@ -14,7 +14,7 @@ module.exports = {
             sql = mysql.format(sql, inserts);
 
         connection.query(sql, function (error, results, fields) {
-            if (!error) {
+            if (!error && results[0]) {
                 status = 200;
                 result.status = status;
                 result.result = results;
@@ -22,6 +22,7 @@ module.exports = {
                 status = 404;
                 result.status = status;
                 result.error = error; 
+                result.message = "Course may not exist."
             }
             res.status(status).send(result);
         });
@@ -47,7 +48,7 @@ module.exports = {
                 result.status = status;
                 result.result = results;
             } else {
-                status = 404;
+                status = 500;
                 result.status = status;
                 result.error = error; 
             }
@@ -78,9 +79,9 @@ module.exports = {
                     result.status = status;
                     result.result = results;
                 } else {
-                    status = 404;
+                    status = 500;
                     result.status = status;
-                    result.error = error; 
+                    result.error = error;
                 }
                 res.status(status).send(result);
             });
@@ -98,14 +99,15 @@ module.exports = {
             sql = mysql.format(sql, inserts);
 
             connection.query(sql, function (error, results, fields) {
-                if (!error) {
+                if (!error && result[0]) {
                     status = 200;
                     result.status = status;
                     result.result = results;
                 } else {
                     status = 404;
                     result.status = status;
-                    result.error = error; 
+                    result.error = error;
+                    result.message = "Course may not exist."
                 }
                 res.status(status).send(result);
             });

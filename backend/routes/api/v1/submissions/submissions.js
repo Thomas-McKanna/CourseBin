@@ -39,6 +39,7 @@ module.exports = {
                     status = 404;
                     result.status = status;
                     result.error = error; 
+                    result.message = "Submission may not exist."
                 }
                 res.status(status).send(result);
             });
@@ -49,19 +50,44 @@ module.exports = {
         let result = {};
         let status = 200; // status code: OK
 
-        console.log(req.files);
-        console.log(req.body);
-
-        res.status(status).send("TODO: add submission")
+        sql = "INSERT INTO submissions (description, username, course_id)"
+            + " VALUES (?, ?, ?)";
+        const payload = req.decoded;
+        inserts = [req.body.description, payload.user, req.params.courseId]
+        sql = mysql.format(sql, inserts);
+        connection.query(sql, function (error, results, fields) {
+            if (!error) {
+                status = 200;
+                result.status = status;
+                result.result = results;
+            } else {
+                status = 500;
+                result.status = status;
+                result.error = error; 
+            }
+            res.status(status).send(result);
+        });
     },
 
     modifySubmission: (req, res) => {
         let result = {};
         let status = 200; // status code: OK
-        
-        const payload = req.decoded;
-        res.status(status).send("TODO: update submission with id " 
-            + req.params.submissionId)
+        console.log(req.params.submissionId);
+        var sql = "UPDATE submissions SET description=? WHERE id = ?" 
+        sql = mysql.format(sql, [req.body.description, req.params.submissionId]);
+
+        connection.query(sql, function (error, results, fields) {
+            if (!error) {
+                status = 200;
+                result.status = status;
+                result.result = results;
+            } else {
+                status = 500;
+                result.status = status;
+                result.error = error;
+            }
+            res.status(status).send(result);
+        });
     },
     
     deleteSubmission: (req, res) => {

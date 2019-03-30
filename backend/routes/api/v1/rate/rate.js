@@ -12,7 +12,7 @@ module.exports = {
         sql = mysql.format(sql, req.params.submissionId);
 
         connection.query(sql, function (error, results, fields) {
-            if (!error) {
+            if (!error && result[0]) {
                 status = 200;
                 result.status = status;
                 result.result = results;
@@ -20,6 +20,7 @@ module.exports = {
                 status = 404;
                 result.status = status;
                 result.error = error; 
+                result.message = "Submission may not exist."
             }
             res.status(status).send(result);
         });
@@ -34,7 +35,7 @@ module.exports = {
         sql = mysql.format(sql, req.params.contentUrl);
 
         connection.query(sql, function (error, results, fields) {
-            if (!error) {
+            if (!error && result[0]) {
                 status = 200;
                 result.status = status;
                 result.result = results;
@@ -42,6 +43,7 @@ module.exports = {
                 status = 404;
                 result.status = status;
                 result.error = error; 
+                result.message = "Content may not exist."
             }
             res.status(status).send(result);
         });
@@ -75,7 +77,7 @@ module.exports = {
                 result.status = status;
                 result.result = results;
             } else {
-                status = 404;
+                status = 500;
                 result.status = status;
                 result.error = error; 
             }

@@ -24,7 +24,7 @@ module.exports = {
                 result.status = status;
                 result.result = results;
             } else {
-                status = 404;
+                status = 500;
                 result.status = status;
                 result.error = error; 
             }
