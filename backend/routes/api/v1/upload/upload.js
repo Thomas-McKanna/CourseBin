@@ -22,7 +22,7 @@ module.exports = {
             if (!error) {
                 status = 200;
                 result.status = status;
-                result.result = results;
+                result.message = "Files uploaded!";
             } else {
                 status = 500;
                 result.status = status;
