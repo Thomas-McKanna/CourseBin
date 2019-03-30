@@ -31,7 +31,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `content` WRITE;
 /*!40000 ALTER TABLE `content` DISABLE KEYS */;
-INSERT INTO `content` VALUES (1,'abc'),(1,'def');
+INSERT INTO `content` VALUES (1,'abc', 'file1.jpg'),(1,'def','file2.docx');
 /*!40000 ALTER TABLE `content` ENABLE KEYS */;
 UNLOCK TABLES;
 

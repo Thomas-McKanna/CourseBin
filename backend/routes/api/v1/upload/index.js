@@ -1,9 +1,12 @@
 var router = require('express').Router();
-var fileUpload = require('express-fileupload')
+var multer = require('multer');
 
 const validateToken = require('../utils').validateToken;
 var upload = require('./upload');
 
-router.post('/:submissionId', validateToken, fileUpload(), upload.upload);
+multerUpload = multer({ storage: upload.storage });
+
+router.post('/:submissionId', validateToken, multerUpload.array('files', 10), 
+    upload.addContent);
 
 module.exports = router;

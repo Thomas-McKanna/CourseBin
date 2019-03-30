@@ -118,10 +118,14 @@ CREATE TABLE IF NOT EXISTS `development`.`submissions` (
   INDEX `course_id_idx` (`course_id` ASC) VISIBLE,
   CONSTRAINT `submissions_course_id`
     FOREIGN KEY (`course_id`)
-    REFERENCES `development`.`courses` (`id`),
+    REFERENCES `development`.`courses` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `submissions_username`
     FOREIGN KEY (`username`)
-    REFERENCES `development`.`users` (`username`))
+    REFERENCES `development`.`users` (`username`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb4
@@ -136,10 +140,13 @@ DROP TABLE IF EXISTS `development`.`content` ;
 CREATE TABLE IF NOT EXISTS `development`.`content` (
   `submission_id` INT(11) NOT NULL,
   `url` VARCHAR(200) NOT NULL,
+  `filename` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`submission_id`, `url`),
   CONSTRAINT `content_submission_id`
     FOREIGN KEY (`submission_id`)
-    REFERENCES `development`.`submissions` (`id`))
+    REFERENCES `development`.`submissions` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -180,10 +187,14 @@ CREATE TABLE IF NOT EXISTS `development`.`ratings` (
   INDEX `username_idx` (`username` ASC) VISIBLE,
   CONSTRAINT `ratings_submission_id_url`
     FOREIGN KEY (`submission_id` , `url`)
-    REFERENCES `development`.`content` (`submission_id` , `url`),
+    REFERENCES `development`.`content` (`submission_id` , `url`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `ratings_username`
     FOREIGN KEY (`username`)
-    REFERENCES `development`.`users` (`username`))
+    REFERENCES `development`.`users` (`username`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
