@@ -166,3 +166,5 @@ The follwing flowchart lays out how creating submissions will be executed by the
 
 [Authenticating users using JSON web tokens](https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens)
 
+[Uploading files](https://github.com/expressjs/multer)
+
