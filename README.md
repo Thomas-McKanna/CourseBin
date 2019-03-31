@@ -149,11 +149,11 @@ The follwing flowchart lays out how creating submissions will be executed by the
 
 ## Roadmap
 
-1. Convert ER diagram to set of relations 
-2. Create pseudocode for all the major functions of our application
-3. Create MySQL schema creation script
-4. Write out the structure of the SQL queries that will be used
-5. Implement Express API for executing the queries of step 4.
+1. <s>Convert ER diagram to set of relations</s> 
+2. <s>Create pseudocode for all the major functions of our application</s> 
+3. <s>Create MySQL schema creation script</s> 
+4. <s>Write out the structure of the SQL queries that will be used</s> 
+5. <s>Implement Express API for executing the queries of step 4.</s> 
 6. Implement React frontend.
 
 ## Resources
