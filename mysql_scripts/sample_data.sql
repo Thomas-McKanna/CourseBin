@@ -46,16 +46,6 @@ INSERT INTO `courses` VALUES (1,'CS2300','Databases','2019','spring','gosnell','
 UNLOCK TABLES;
 
 --
--- Dumping data for table `has_taken`
---
-
-LOCK TABLES `has_taken` WRITE;
-/*!40000 ALTER TABLE `has_taken` DISABLE KEYS */;
-INSERT INTO `has_taken` VALUES ('test',1);
-/*!40000 ALTER TABLE `has_taken` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping data for table `ratings`
 --
 

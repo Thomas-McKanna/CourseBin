@@ -151,28 +151,6 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
-
--- -----------------------------------------------------
--- Table `development`.`has_taken`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `development`.`has_taken` ;
-
-CREATE TABLE IF NOT EXISTS `development`.`has_taken` (
-  `username` VARCHAR(30) NOT NULL,
-  `course_id` INT(11) NOT NULL,
-  PRIMARY KEY (`username`, `course_id`),
-  INDEX `course_id_idx` (`course_id` ASC) VISIBLE,
-  CONSTRAINT `has_taken_course_id`
-    FOREIGN KEY (`course_id`)
-    REFERENCES `development`.`courses` (`id`),
-  CONSTRAINT `has_taken_username`
-    FOREIGN KEY (`username`)
-    REFERENCES `development`.`users` (`username`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
 -- -----------------------------------------------------
 -- Table `development`.`ratings`
 -- -----------------------------------------------------
