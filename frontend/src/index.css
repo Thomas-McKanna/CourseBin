@@ -12,3 +12,49 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+#menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #00cc00;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+#menu li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 1.5em;
+  text-decoration: none;
+}
+
+#logo {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  font-family: "Arial Black", Gadget, sans-serif;
+  padding: 0.3em;
+  font-size: 2em;
+
+  text-decoration: none;
+}
+
+#menu li a:hover {
+  background-color: #82f456;
+}
+
+#navigation {
+  display: inline-block;
+  vertical-align: middle;
+}
+
