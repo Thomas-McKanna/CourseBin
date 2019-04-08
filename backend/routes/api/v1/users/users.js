@@ -75,6 +75,7 @@ module.exports = {
                         result.token = token;
                         result.status = status;
                         result.result = username;
+                        res.status(status).cookie('auth', token);
                     } else {
                         status = 401;
                         result.status = status;

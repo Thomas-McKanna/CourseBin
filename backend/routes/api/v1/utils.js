@@ -7,6 +7,7 @@ module.exports = {
           let result;
           if (authorizationHeaader) {
               const token = req.headers.authorization.split(' ')[1]; // Bearer <token>
+              console.log(authorizationHeaader)
               const options = {
               expiresIn: '1d',
               issuer: 'coursebin'
