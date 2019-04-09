@@ -1,16 +1,16 @@
 import './index.css'
 import React from "react";
 import { 
-  BrowserRouter as Router, 
+  BrowserRouter, 
   Route, 
-  NavLink, 
-  Switch
+  Switch,
+  Redirect,
 } from "react-router-dom";
-import Login from './login/login';
+import Header from "./header"
+import SearchForm from "./search_form"
 
 function App() {
   const headerLinks = [
-    {label: 'Home', link: '/', float: 'left'},
     {label: 'Search', link: '/search/', float: 'left'},
     {label: 'Submit', link: '/submit/', float: 'left'},
     {label: 'Sign Up', link: '/signup/', float: 'right'},
@@ -18,18 +18,18 @@ function App() {
   ]
 
   return (
-    <Router>
-      <div>
+    <BrowserRouter>
+      <div id="outer_body">
         <Header id="navigation" links={headerLinks}/>
-        <Switch>
-          <Route path='/search' component={Search} />
-          <Route path='/submit' component={Submit} />
-          <Route path='/login' component={Login} />
-          <Route component={NotFound} />
-        </Switch>
-        
+          <div id="inner_body">
+            <Switch>
+              <Route path='/search' component={SearchForm} />
+              <Route path='/submit' component={Submit} />
+              <Route component={NotFound} />
+            </Switch>
+          </div>
       </div>
-    </Router>
+    </BrowserRouter>
   );
 }
 
@@ -48,41 +48,6 @@ function Search() {
 
 function Submit({ match }) {
   return <h2>Submit Page</h2>;
-}
-
-class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.links = props.links.map((item) => 
-      <HeaderLink key={item.label}
-        link={item.link}
-        label={item.label} 
-        float={item.float} />
-    );
-  }
-
-  render() {
-    return (
-      <div>
-        <ul id='menu'>
-          <li id='logo'>CourseBin</li>
-          {this.links}
-        </ul>
-      </div>
-    );
-  }
-}
-
-class HeaderLink extends React.Component {
-  render() {
-    return (
-      <li className={this.props.float}>
-        <NavLink to={this.props.link}>
-          {this.props.label}
-        </NavLink>
-      </li>
-    );
-  }
 }
 
 export default App;
