@@ -99,15 +99,4 @@ html {
   margin: 0 auto;
 }
 
-hr {
-  height: 4px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color:#000000;
-  border: 0 none;
-}
-
-.form h3 {
-  margin-bottom: 0;
-}
 

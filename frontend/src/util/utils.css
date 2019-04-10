@@ -1,0 +1,42 @@
+.tip_box {
+    background-color: #b1ffc2;
+    border-radius: 25px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.tip_text b{
+    margin-left: 1em;
+}
+
+hr {
+    height: 2px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color:#000000;
+    border: 0 none;
+}
+
+.form h3 {
+    display: inline;
+}
+
+.aside {
+    background-color:  #d6d6d6;  
+    border-radius: 25px;
+    border-style: solid;
+    border-width: 1px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.input input, select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+.radio label, input {
+    margin-right: 1em;
+}
