@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -13,12 +14,47 @@ code {
     monospace;
 }
 
+html {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+#inner_header {
+  width: 50%;
+  margin: 0 auto;
+}
+
+#outer_header {
+  background-color: #00b900;
+}
+
+#header_separator {
+  height: 0.5em;
+  background-color: #000000;
+}
+
+#inner_body {
+  width: 50%;
+  margin: 0 auto;
+  background-color: #ffffff;
+  height: 90%;
+  border-style: solid;
+}
+
+#outer_body {
+  background-image: url("pipes.png");
+  height: 100%;
+}
+
 #menu {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #00cc00;
+  background-color: #00b900;
 }
 
 .left {
@@ -50,11 +86,17 @@ code {
 }
 
 #menu li a:hover {
-  background-color: #82f456;
+  background-color: #41e600;
 }
 
 #navigation {
   display: inline-block;
   vertical-align: middle;
 }
+
+.form {
+  width: 90%;
+  margin: 0 auto;
+}
+
 
