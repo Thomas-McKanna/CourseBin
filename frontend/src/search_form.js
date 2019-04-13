@@ -1,9 +1,16 @@
 import React from "react";
+import axios from "axios"
 import './index.css'
 
 import FormField from './util/form_field'
+import SubmitButton from './util/submit_button'
 
 class SearchForm extends React.Component {
+    state = {
+        schoolOptions: []
+    }
+    
+
     constructor(props) {
         super(props)
 
@@ -18,15 +25,24 @@ class SearchForm extends React.Component {
         this.handleSemesterChange = this.handleSemesterChange.bind(this);
         this.handleProfessorChange = this.handleProfessorChange.bind(this);
         this.handleButtonChange = this.handleButtonChange.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
+    }
+
+    componentDidMount() {
+        var self = this; // bind "this" so that callbacks can use it
+        axios.get('/api/v1/schools/names')
+        .then(function(response) {
+            if (response.status === 200) {
+                self.setState({ schoolOptions: response.data.result });
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
     }
 
     handleSubmit(event) {
         console.log("TODO");
-
-        // need tracking variables to track changes to sumbit
-        // add submit button
-        // prevent defaults event.preventdefault
-
         event.preventDefault();
 
         return;
@@ -76,6 +92,7 @@ class SearchForm extends React.Component {
                         handleFunc={this.handleCourseNameChange}/>
                     <FormField
                         select
+                        options={this.state.schoolOptions}
                         label="School Name"
                         placeholder="CS2300"
                         css_class="input"
@@ -108,8 +125,9 @@ class SearchForm extends React.Component {
                         label="Order Results By"
                         css_class="radio"
                         handleFunc={this.handleButtonChange}/>
-                
-                <input type="submit" value="Submit" />
+                    <SubmitButton
+                        label="Search"
+                        handleFunc={this.handleSubmit}/>
                 </form>
             </div>
         );

@@ -40,3 +40,18 @@ hr {
 .radio label, input {
     margin-right: 1em;
 }
+
+.submit_btn {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    background-color:  #b1ffc2;
+    border-color: #000000;
+    font-weight: 900;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.submit_btn:hover { 
+    background-color: #7bff98;
+}

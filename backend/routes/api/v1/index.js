@@ -10,5 +10,6 @@ router.use('/submissions', require('./submissions'));
 router.use('/users', require('./users'));
 router.use('/upload', require('./upload'));
 router.use('/download', require('./download'));
+router.use('/schools', require('./schools'));
 
 module.exports = router;

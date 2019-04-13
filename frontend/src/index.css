@@ -40,13 +40,11 @@ html {
   width: 50%;
   margin: 0 auto;
   background-color: #ffffff;
-  height: 90%;
   border-style: solid;
 }
 
 #outer_body {
   background-image: url("pipes.png");
-  height: 100%;
 }
 
 #menu {

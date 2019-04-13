@@ -77,9 +77,15 @@ class FormField extends React.Component {
         }
         
         if (this.props.select) {
+            const options = this.props.options.map((school) =>
+                <option key={school.school_code}
+                    value={school.school_code} 
+                >{school.school_name}</option>
+            );
+
             input = (
                 <select>
-                    <option value="TODO">TODO</option>
+                    {options}
                 </select>
             );
         }
