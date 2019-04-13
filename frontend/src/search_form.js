@@ -22,6 +22,13 @@ class SearchForm extends React.Component {
 
     handleSubmit(event) {
         console.log("TODO");
+
+        // need tracking variables to track changes to sumbit
+        // add submit button
+        // prevent defaults event.preventdefault
+
+        event.preventDefault();
+
         return;
     }
 
@@ -101,6 +108,8 @@ class SearchForm extends React.Component {
                         label="Order Results By"
                         css_class="radio"
                         handleFunc={this.handleButtonChange}/>
+                
+                <input type="submit" value="Submit" />
                 </form>
             </div>
         );
