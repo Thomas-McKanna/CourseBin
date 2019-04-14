@@ -84,7 +84,7 @@ class FormField extends React.Component {
             );
 
             input = (
-                <select>
+                <select onChange={this.props.handleFunc}>
                     {options}
                 </select>
             );

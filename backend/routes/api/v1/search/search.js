@@ -46,6 +46,12 @@ module.exports = {
             semester_clause = mysql.format(semester_clause, req.params.semester);
         }
 
+        // option for searching by semester
+        if (req.params.professor !== 'none') {
+            var professor_clause = " AND professor=? ";
+            professor_clause = mysql.format(professor_clause, req.params.professor);
+        }
+
         // option for ordering results
         if (req.params.orderType !== 'none') {
             if (req.params.orderType === 'date') {
