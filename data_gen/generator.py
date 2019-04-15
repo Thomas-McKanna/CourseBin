@@ -185,12 +185,14 @@ def generate_submissions(submissions_per_course, usernames, course_ids):
         `username` VARCHAR(30) NOT NULL,
         `course_id` INT(11) NOT NULL,
         """
-        descriptions = ['I like this class', 'I do not like this class']
+        descriptions = []
+        with open('latin.txt', 'r') as f:
+                descriptions = f.readlines()
 
         for cid in course_ids:
                 for i in range(submissions_per_course):
                         username = usernames[randint(0, len(usernames)-1)]
-                        description = descriptions[randint(0, len(descriptions)-1)]
+                        description = descriptions[randint(0, len(descriptions)-1)].strip()
 
                         output = f"INSERT INTO submissions (description, username, course_id) VALUES ('{description}', '{username}', '{cid}');"
 
@@ -204,9 +206,9 @@ def generate_content(submission_ids):
         `url` VARCHAR(200) NOT NULL,
         `filename` VARCHAR(100) NOT NULL,
         """
-        files = ['4a770738ad8d2809ae81281be770495d.jpg', '74eadbb870cac23d18ef018b1bd483b8.jpg', 'b2619dc8e3f59da76e7432efc9b185a3.jpg']
+        files = ['HW0-10', 'All HW', 'Practice Test', 'Study Guide Test 1','Study Guide Test 1','Study Guide Test 3']
+        files += ['HW ' + str(i) for i in range(1, 7)]
 
-        urls = []
         url_to_submissions = {}
         for id in submission_ids:
                 filename = files[randint(0, len(files)-1)]
@@ -227,8 +229,13 @@ def generate_ratings(usernames, url_to_submissions):
         """
         
         for submission_id, url in url_to_submissions.items():
+                used_names = []
+                username = ""
                 for i in range(randint(1, 3)):
-                        username = usernames[randint(0, len(usernames)-1)]
+                        while username in used_names or username == "":
+                                username = usernames[randint(0, len(usernames)-1)]
+
+                        used_names.append(username)
                         rating = randint(1,5)
                         
                         output = f"INSERT INTO ratings (submission_id, url, username, rating) VALUES ('{submission_id}', '{url}', '{username}', '{rating}');"
@@ -249,13 +256,13 @@ delete from users;
 SET foreign_key_checks = 1;""")
 
                 school_codes = generate_schools(6)
-                usernames = generate_users(12)
+                usernames = generate_users(40)
 
                 generate_attendance(usernames, school_codes)
 
                 action("ALTER TABLE courses AUTO_INCREMENT = 1;")
 
-                course_ids = generate_courses(12, school_codes)
+                course_ids = generate_courses(50, school_codes)
 
                 action("ALTER TABLE submissions AUTO_INCREMENT = 1;")
                 
