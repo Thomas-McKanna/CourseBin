@@ -8,10 +8,11 @@ import {
 } from "react-router-dom";
 import Header from "./header"
 import SearchForm from "./search_form"
+import SearchResults from "./search_results"
 
 function App() {
   const headerLinks = [
-    {label: 'Search', link: '/search/', float: 'left'},
+    {label: 'Search', link: '/search/form', float: 'left'},
     {label: 'Submit', link: '/submit/', float: 'left'},
     {label: 'Sign Up', link: '/signup/', float: 'right'},
     {label: 'Log In', link: '/login/', float: 'right'},
@@ -23,7 +24,8 @@ function App() {
         <Header id="navigation" links={headerLinks}/>
           <div id="inner_body">
             <Switch>
-              <Route path='/search' component={SearchForm} />
+              <Route path='/search/form' component={SearchForm} />
+              <Route path='/search' component={SearchResults} />
               <Route path='/submit' component={Submit} />
               <Route component={NotFound} />
             </Switch>
@@ -39,11 +41,6 @@ function Home() {
 
 function NotFound() {
   return <h2>Page Not Found.</h2>;
-}
-
-
-function Search() {
-  return <h2>Search Page</h2>;
 }
 
 function Submit({ match }) {

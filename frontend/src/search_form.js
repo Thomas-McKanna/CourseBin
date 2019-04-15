@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios"
 import './index.css'
 
+import { Redirect } from "react-router-dom";
+
 import FormField from './util/form_field'
 import SubmitButton from './util/submit_button'
 import Warning from './util/warning'
@@ -17,6 +19,7 @@ class SearchForm extends React.Component {
         professor: '',
         orderBy: 'date',
         warning: '',
+        searchWasMade: false,
     }
     
     constructor(props) {
@@ -35,7 +38,6 @@ class SearchForm extends React.Component {
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handleButtonChange = this.handleButtonChange.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
-        this.formatSearchRequestCall = this.formatSearchRequestCall.bind(this);
     }
 
     componentDidMount() {
@@ -44,7 +46,6 @@ class SearchForm extends React.Component {
         .then(function(response) {
             if (response.status === 200) {
                 self.setState({schoolOptions: response.data.result});
-                
                 self.setState({school: response.data.result[0]['school_code']})
             }
         })
@@ -63,36 +64,35 @@ class SearchForm extends React.Component {
             this.setState({warning: ''});
         }
 
-        const request = this.formatSearchRequestCall();
-        console.log(request);
+        const queryString = this.getQueryString(this.state);
 
-        var self = this; // bind "this" so that callbacks can use it
-        axios.get(request)
-        .then(function(response) {
-            if (response.status === 200) {
-                console.log(response);
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+        this.setState({queryString: queryString})
+        this.setState({searchWasMade: true})
         
         return;
     }
 
-    formatSearchRequestCall() {
-        const st = this.state
-        var course = st['course'] // validated in handle submit
-        var school = st['school'] // validated in handle submit
-        var semester = (st['semester'] === '' ? 'none': st['semester'])
-        var year = (st['year'] === '' ? 'none': st['year'])
-        var professor = (st['professor'] === '' ? 'none': st['professor'])
-        var username = (st['username'] === '' ? 'none': st['username'])
-        var orderBy = st['orderBy'] // ensured to be set by initial state
-        var request = `/api/v1/search/course/${course}/school/${school}/time/`
-            + `${semester}/${year}/user/${username}/professor/${professor}`
-                + `/order/${orderBy}`;
-        return request
+    getQueryString(st) {
+        var params = []
+        params.push('course=' + st['course'])
+        params.push('school=' + st['school'])
+        params.push(st['semester'] === '' ? '': ('semester=' + st['semester']))
+        params.push(st['year'] === '' ? '': ('year=' + st['year']))
+        params.push(st['professor'] === '' ? '': ('professor=' + st['professor']))
+        params.push(st['username'] === '' ? '': ('username=' + st['username']))
+        params.push('orderby=' + st['orderBy'])
+        var qString = "";
+        var i;
+        const len = params.length;
+        for (i = 0; i < len; i++) {
+            if (params[i] !== "") {
+                qString += params[i];
+                if (i !== len - 1) {
+                    qString += "&"
+                }
+            }
+        }
+        return '?' + qString
     }
 
     handleCourseNameChange(event) {
@@ -139,6 +139,13 @@ class SearchForm extends React.Component {
     render() {
         return (
             <div className="form">
+                {this.state['searchWasMade'] && 
+                    <Redirect push 
+                        to={{
+                            pathname: "/search",
+                            search: this.state["queryString"],
+                        }} />
+                }
                 {this.state['warning'] !== '' &&
                     <Warning 
                         msg={this.state['warning']}

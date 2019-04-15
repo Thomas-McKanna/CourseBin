@@ -28,7 +28,6 @@ module.exports = {
     getNames: (req, res) => {
         let result = {};
         let status = 200; // status code: OK
-
         var sql = "SELECT school_code, school_name"
             + " FROM schools"
             var inserts = [req.params.courseId];
