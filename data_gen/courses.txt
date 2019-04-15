@@ -1,0 +1,33 @@
+Dynamics
+Aerodynamics
+Physics
+Structural Analysis
+Drawing
+Dancing
+Biology
+Ecology
+Cats
+Ceramics
+Chemistry
+Linear Algebra
+Calculus II
+Modern Algebra
+Databases
+Theory of Computer Science
+Algorithms
+Digital Logic
+Circuits
+Data Structures
+AI
+Electromagnetics
+Management
+Geology
+Cybersecurity
+Marketing
+Thermofluid Mechanics
+Ethics
+Philosophy
+Networking
+Numerical Methods
+Operating Systems
+Hydrologic Engineering

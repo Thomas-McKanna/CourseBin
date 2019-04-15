@@ -7,7 +7,7 @@ usernames_filename = 'usernames.txt'
 action = print
 
 def length_mask(df, item_comparisons):
-	"""
+        """
 	Applies length comparisons to items in dataframe.
 
 	Parameters
@@ -22,13 +22,13 @@ def length_mask(df, item_comparisons):
 	------- 
 	Boolean
 	"""
-	filters = [filter(df[index].str.len()) for index, filter in item_comparisons.items()]
 
-	mask = filters[0]
-	for f in filters:
-		mask = mask & f
-		
-	return mask
+        filters = [df[index].apply(f) for index, f in item_comparisons.items()]
+
+        for f in filters:
+                df = df.loc[f]
+
+        return df
 	
 
 def generate_schools(school_count=9999):
@@ -59,14 +59,14 @@ def generate_schools(school_count=9999):
 	schools = schools[schools.ZipCode != '00000']
 	
 	length_filters = {
-		'SchoolCode': 	lambda v: v <= 6,
-		'SchoolName': 	lambda v: v <= 45,
-		'Address': 		lambda v: v <= 45,
-		'City': 		lambda v: v <= 45,
-		'StateCode': 	lambda v: v == 2, 
-		'ZipCode': 		lambda v: v == 5}
+		'SchoolCode': 	lambda v: len(v) <= 6,
+		'SchoolName': 	lambda v: len(v) <= 45,
+		'Address': 		lambda v: len(v) <= 45,
+		'City': 		lambda v: len(v) <= 45,
+		'StateCode': 	lambda v: len(v) == 2, 
+		'ZipCode': 		lambda v: len(v) == 5}
 	
-	schools = schools.loc[length_mask(schools, length_filters)]
+	schools = length_mask(schools, length_filters)
 	
 	# style
 	schools['SchoolName'] = schools['SchoolName'].apply(lambda s: s.title())
@@ -119,7 +119,7 @@ def generate_users(user_count):
 		usernames.remove(username)
 		used_names.append(username)
 		
-		row = f"INSERT INTO users VALUES ('{username}', '{str(hash(username))[:100]}', '{f'profile_img/{username}'[:100]}', '{int(i % 177 != 0)}', '{int(i < 3)}')"
+		row = f"INSERT INTO users (username, hash, profile_img_url, student_flag, admin_flag) VALUES ('{username}', '{str(hash(username))[:100]}', '{f'profile_img/{username}'[:100]}', '{int(i % 177 != 0)}', '{int(i < 3)}');"
 		
 		action(row)
 
@@ -143,46 +143,124 @@ def generate_attendance(usernames, school_codes):
 		School codes to choose from
 	"""
 	for name in usernames:
-		output = f"INSERT INTO attends VALUES ('{name}', '{school_codes[randint(0, len(school_codes)-1)]}')"
+		output = f"INSERT INTO attends VALUES ('{name}', '{school_codes[randint(0, len(school_codes)-1)]}');"
 	
 		action(output)
     
 
+def generate_courses(count, school_codes):
+        """
+        courses
+        """
+
+        last_names = []
+        with open('last-names.txt', 'r') as f:
+                last_names = f.readlines()
+        course_names = []
+        with open('courses.txt', 'r') as f:
+                course_names = f.readlines()
+
+        for i in range(count):
+                name = course_names[randint(0, len(course_names)-1)].strip().title()
+                professor = f"Dr. {last_names[randint(0, len(last_names)-1)].strip()}".title()
+
+                
+                semester = 'Spring' if randint(0,1) else 'Fall'
+                year = randint(2010, 2019)
+                number = randint(100, 550)
+                
+                school = school_codes[randint(0, len(school_codes)-1)]
+                
+                output = f"INSERT INTO courses (number, name, year, semester, professor, school) VALUES ('{number}', '{name}', '{year}', '{semester}', '{professor}', '{school}');"
+                action(output)
+                
+        return [i for i in range(1, count+1)]
+
+
+def generate_submissions(submissions_per_course, usernames, course_ids):
+        """  # Submissions
+        Need to reset the auto-increment id if refershing this table!
+
+        `description` VARCHAR(200) NULL DEFAULT NULL,
+        `username` VARCHAR(30) NOT NULL,
+        `course_id` INT(11) NOT NULL,
+        """
+        descriptions = ['I like this class', 'I do not like this class']
+
+        for cid in course_ids:
+                for i in range(submissions_per_course):
+                        username = usernames[randint(0, len(usernames)-1)]
+                        description = descriptions[randint(0, len(descriptions)-1)]
+
+                        output = f"INSERT INTO submissions (description, username, course_id) VALUES ('{description}', '{username}', '{cid}');"
+
+                        action(output)
+
+        return [i for i in range(1, len(course_ids)*submissions_per_course+1)]
+
+def generate_content(submission_ids):
+        """  # Content
+        `submission_id` INT(11) NOT NULL,
+        `url` VARCHAR(200) NOT NULL,
+        `filename` VARCHAR(100) NOT NULL,
+        """
+        files = ['4a770738ad8d2809ae81281be770495d.jpg', '74eadbb870cac23d18ef018b1bd483b8.jpg', 'b2619dc8e3f59da76e7432efc9b185a3.jpg']
+
+        urls = []
+        url_to_submissions = {}
+        for id in submission_ids:
+                filename = files[randint(0, len(files)-1)]
+                url = f'/data/{filename}'
+
+                output = f"INSERT INTO content (submission_id, url, filename) VALUES ('{id}', '{url}', '{filename}');"
+
+                action(output)
+                url_to_submissions.update({id: url})
+        return url_to_submissions
+
+def generate_ratings(usernames, url_to_submissions):
+        """  # Ratings
+        `submission_id` INT(11) NOT NULL,
+        `url` VARCHAR(200) NOT NULL,
+        `username` VARCHAR(30) NOT NULL,
+        `rating` INT(11) NOT NULL,
+        """
+        
+        for submission_id, url in url_to_submissions.items():
+                for i in range(randint(1, 3)):
+                        username = usernames[randint(0, len(usernames)-1)]
+                        rating = randint(1,5)
+                        
+                        output = f"INSERT INTO ratings (submission_id, url, username, rating) VALUES ('{submission_id}', '{url}', '{username}', '{rating}');"
+
+                        action(output)
+                
 if __name__ == '__main__':
-	pd.set_option('display.max_columns', None)
+        pd.set_option('display.max_columns', None)
 
-	school_codes = generate_schools(6)
-	usernames = generate_users(12) 
-
-	generate_attendance(usernames, school_codes)
+        with open('sample.sql', 'w') as f:
+                action = lambda w: f.write(w + '\n')
+                
 	
-	"""  # courses
-    `id` INT(11) NOT NULL AUTO_INCREMENT,
-    `number` VARCHAR(25) NOT NULL,
-    `name` VARCHAR(60) NULL DEFAULT NULL,
-    `year` CHAR(4) NOT NULL,
-    `semester` VARCHAR(6) NOT NULL,
-    `professor` VARCHAR(45) NULL DEFAULT NULL,
-    `school` CHAR(6) NOT NULL,
-    """
+                action("""SET foreign_key_checks = 0;
+SET SQL_SAFE_UPDATES = 0;
+delete from schools;
+delete from users;
+SET foreign_key_checks = 1;""")
 
-	"""  # Submissions
-    `id` INT(11) NOT NULL AUTO_INCREMENT,
-    `date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `description` VARCHAR(200) NULL DEFAULT NULL,
-    `username` VARCHAR(30) NOT NULL,
-    `course_id` INT(11) NOT NULL,
-    """
+                school_codes = generate_schools(6)
+                usernames = generate_users(12)
 
-	"""  # Content
-    `submission_id` INT(11) NOT NULL,
-    `url` VARCHAR(200) NOT NULL,
-    `filename` VARCHAR(100) NOT NULL,
-    """
+                generate_attendance(usernames, school_codes)
 
-	"""  # Ratings
-    `submission_id` INT(11) NOT NULL,
-    `url` VARCHAR(200) NOT NULL,
-    `username` VARCHAR(30) NOT NULL,
-    `rating` INT(11) NOT NULL,
-    """
+                action("ALTER TABLE courses AUTO_INCREMENT = 1;")
+
+                course_ids = generate_courses(12, school_codes)
+
+                action("ALTER TABLE submissions AUTO_INCREMENT = 1;")
+                
+                submission_ids = generate_submissions(3, usernames, course_ids)
+
+                url_to_submissions = generate_content(submission_ids)
+
+                generate_ratings(usernames, url_to_submissions)
