@@ -97,4 +97,16 @@ html {
   margin: 0 auto;
 }
 
+.submission {
+  list-style: none;
+}
+
+.submission div {
+  background-color: #d6fdc7;
+  border-style: solid;
+  border-width: 1px;
+  margin: 1em;
+  padding: 2em;
+}
+
 
