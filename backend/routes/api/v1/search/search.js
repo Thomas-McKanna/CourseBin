@@ -66,9 +66,11 @@ module.exports = {
             }
         }
 
-        var sql = "SELECT S_DER.id, C.name, C.number, C.professor, C.semester, C.year, total_rating FROM (SELECT * FROM submissions" + username_clause + ") AS S_DER"
+        var sql = "SELECT S_DER.id, C.name, C.number, S.school_name, C.professor, C.semester, C.year, U.username, total_rating FROM (SELECT * FROM submissions" + username_clause + ") AS S_DER"
             + " LEFT JOIN courses AS C ON S_DER.course_id = C.id"
             + " LEFT JOIN (SELECT submission_id, SUM(rating) total_rating FROM development.content NATURAL JOIN development.ratings) AS RCNT ON S_DER.id = RCNT.submission_id"
+            + " LEFT JOIN schools AS S on S.school_code=C.school"
+            + " LEFT JOIN users as U on U.username=S_DER.username"
             + " WHERE 1=1 " + number_clause + school_clause + year_clause + semester_clause + professor_clause 
             + order_clause;
 
