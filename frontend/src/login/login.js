@@ -1,7 +1,9 @@
 import Cookies from 'universal-cookie';
 import React from "react";
 import axios from "axios"
-import './login.css'
+import '../index.css'
+import FormField from '../util/form_field'
+import SubmitButton from '../util/submit_button'
 
 class Login extends React.Component {
     constructor(props) {
@@ -9,7 +11,6 @@ class Login extends React.Component {
         this.state = {
             username: '', 
             password: '',
-            submission: '',
         };
     
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -26,6 +27,8 @@ class Login extends React.Component {
     }
     
     handleSubmit(event) {
+        console.log('yo mama')
+        
         axios.post('/api/v1/users/login/', {
             username: this.state.username,
             password: this.state.password
@@ -46,17 +49,21 @@ class Login extends React.Component {
             <div>
                 <h2>Login Page</h2>
                 <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Username:
-                        <input type="text" onChange={this.handleUsernameChange} />
-                    </label>
-                    <br/>
-                    <label>
-                        Password:
-                        <input type="text" onChange={this.handlePasswordChange} />
-                    </label>
-                    <br/>
-                    <input type="submit" value="Submit" />
+                    <FormField 
+                        input
+                        label="Username"
+                        placeholder=""
+                        css_class="input"
+                        handleFunc={this.handleUsernameChange}/>
+                    <FormField
+                        input
+                        label="Password"
+                        placeholder=""
+                        css_class="input"
+                        handleFunc={this.handlePasswordChange}/>
+                    <SubmitButton
+                        label="Submit"
+                        handleFunc={this.handleSubmit}/>
                 </form>
             </div>
         );
