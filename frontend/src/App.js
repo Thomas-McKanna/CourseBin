@@ -10,6 +10,7 @@ import Header from "./header"
 import SearchForm from "./search_form"
 import SearchResults from "./search_results"
 import Login from "./login"
+import SignUp from "./signup"
 
 function App() {
   const headerLinks = [
@@ -29,6 +30,7 @@ function App() {
               <Route path='/search' component={SearchResults} />
               <Route path='/submit' component={Submit} />
               <Route path='/login' component={Login} />
+              <Route path='/signup' component = {SignUp} />
               <Route component={NotFound} />
             </Switch>
           </div>
