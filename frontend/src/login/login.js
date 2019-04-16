@@ -14,9 +14,7 @@ class Login extends React.Component {
     
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
-        this.handleSubmissionChange = this.handleSubmissionChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleSubmissionSubmit = this.handleSubmissionSubmit.bind(this);
     }
 
     handleUsernameChange(event) {
@@ -25,9 +23,6 @@ class Login extends React.Component {
 
     handlePasswordChange(event) {
         this.setState({password: event.target.value});
-    }
-    handleSubmissionChange(event) {
-        this.setState({submission: event.target.value});
     }
     
     handleSubmit(event) {
@@ -39,26 +34,6 @@ class Login extends React.Component {
             if (response.status === '200') {
                 console.log(response);
             }
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
-        event.preventDefault();
-    }
-
-    handleSubmissionSubmit(event) {
-        const cookies = new Cookies();
-        console.log(this.state.submission);
-        axios.post('/api/v1/submissions/course/1', {
-            description: this.state.submission,
-        }, {
-            headers: {'Authorization': "bearer " + cookies.get('auth')}
-        })
-        .then(function(response) {
-            if (response.status === '200') {
-                console.log(response);
-            }
-            console.log(response);
         })
         .catch(function (error) {
             console.log(error);
@@ -83,15 +58,6 @@ class Login extends React.Component {
                     <br/>
                     <input type="submit" value="Submit" />
                 </form>
-                <form onSubmit={this.handleSubmissionSubmit}>
-                    <label>
-                        submission description:
-                        <input type="text" onChange={this.handleSubmissionChange} />
-                    </label>
-                    <br/>
-                    <input type="submit" value="Submit" />
-                </form>
-
             </div>
         );
     }
