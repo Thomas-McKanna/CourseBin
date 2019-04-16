@@ -26,9 +26,7 @@ class Login extends React.Component {
         this.setState({password: event.target.value});
     }
     
-    handleSubmit(event) {
-        console.log('yo mama')
-        
+    handleSubmit(event) {        
         axios.post('/api/v1/users/login/', {
             username: this.state.username,
             password: this.state.password
