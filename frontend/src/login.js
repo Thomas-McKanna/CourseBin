@@ -1,9 +1,9 @@
 import Cookies from 'universal-cookie';
 import React from "react";
 import axios from "axios"
-import '../index.css'
-import FormField from '../util/form_field'
-import SubmitButton from '../util/submit_button'
+import './index.css'
+import FormField from './util/form_field'
+import SubmitButton from './util/submit_button'
 
 class Login extends React.Component {
     constructor(props) {

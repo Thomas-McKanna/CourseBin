@@ -9,7 +9,7 @@ import {
 import Header from "./header"
 import SearchForm from "./search_form"
 import SearchResults from "./search_results"
-import Login from "./login/login"
+import Login from "./login"
 
 function App() {
   const headerLinks = [
