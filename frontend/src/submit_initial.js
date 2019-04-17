@@ -66,11 +66,6 @@ class SubmitInitial extends React.Component {
         var params = []
         params.push('course=' + st['course'])
         params.push('school=' + st['school'])
-        params.push(st['semester'] === '' ? '': ('semester=' + st['semester']))
-        params.push(st['year'] === '' ? '': ('year=' + st['year']))
-        params.push(st['professor'] === '' ? '': ('professor=' + st['professor']))
-        params.push(st['username'] === '' ? '': ('username=' + st['username']))
-        params.push('orderby=' + st['orderBy'])
         var qString = "";
         var i;
         const len = params.length;
@@ -88,7 +83,7 @@ class SubmitInitial extends React.Component {
     render() {
         return (
             <div>
-                <h2>Login Page</h2>
+                <h2>Course Lookup</h2>
                 <form onSubmit={this.handleSubmit}>
                     <FormField
                         select
