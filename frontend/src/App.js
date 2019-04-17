@@ -9,13 +9,14 @@ import {
 import Header from "./header"
 import SearchForm from "./search_form"
 import SearchResults from "./search_results"
+import SubmitInitial from "./submit_initial"
 import Login from "./login"
 import SignUp from "./signup"
 
 function App() {
   const headerLinks = [
     {label: 'Search', link: '/search/form', float: 'left'},
-    {label: 'Submit', link: '/submit/', float: 'left'},
+    {label: 'Submit', link: '/submit_initial/', float: 'left'},
     {label: 'Sign Up', link: '/signup/', float: 'right'},
     {label: 'Log In', link: '/login/', float: 'right'},
   ]
@@ -28,7 +29,7 @@ function App() {
             <Switch>
               <Route path='/search/form' component={SearchForm} />
               <Route path='/search' component={SearchResults} />
-              <Route path='/submit' component={Submit} />
+              <Route path='/submit_initial' component={SubmitInitial} />
               <Route path='/login' component={Login} />
               <Route path='/signup' component = {SignUp} />
               <Route component={NotFound} />
@@ -45,10 +46,6 @@ function Home() {
 
 function NotFound() {
   return <h2>Page Not Found.</h2>;
-}
-
-function Submit({ match }) {
-  return <h2>Submit Page</h2>;
 }
 
 export default App;
