@@ -13,31 +13,38 @@ import SubmitInitial from "./submit_initial"
 import Login from "./login"
 import SignUp from "./signup"
 
-function App() {
-  const headerLinks = [
-    {label: 'Search', link: '/search/form', float: 'left'},
-    {label: 'Submit', link: '/submit_initial/', float: 'left'},
-    {label: 'Sign Up', link: '/signup/', float: 'right'},
-    {label: 'Log In', link: '/login/', float: 'right'},
-  ]
+class App extends React.Component {
 
-  return (
-    <BrowserRouter>
-      <div id="outer_body">
-        <Header id="navigation" links={headerLinks}/>
-          <div id="inner_body">
-            <Switch>
-              <Route path='/search/form' component={SearchForm} />
-              <Route path='/search' component={SearchResults} />
-              <Route path='/submit_initial' component={SubmitInitial} />
-              <Route path='/login' component={Login} />
-              <Route path='/signup' component = {SignUp} />
-              <Route component={NotFound} />
-            </Switch>
-          </div>
-      </div>
-    </BrowserRouter>
-  );
+  state = {
+    loggedIn: false,
+  }
+
+  render() {
+    const headerLinks = [
+      {label: 'Search', link: '/search/form', float: 'left'},
+      {label: 'Submit', link: '/submit_initial/', float: 'left'},
+      {label: 'Sign Up', link: '/signup/', float: 'right'},
+      {label: 'Log In', link: '/login/', float: 'right'},
+    ]
+
+    return (
+      <BrowserRouter>
+        <div id="outer_body">
+          <Header id="navigation" links={headerLinks}/>
+            <div id="inner_body">
+              <Switch>
+                <Route path='/search/form' component={SearchForm} />
+                <Route path='/search' component={SearchResults} />
+                <Route path='/submit_initial' component={SubmitInitial} />
+                <Route path='/login' component={Login} />
+                <Route path='/signup' component = {SignUp} />
+                <Route component={NotFound} />
+              </Switch>
+            </div>
+        </div>
+      </BrowserRouter>
+    );
+  }
 }
 
 function Home() {

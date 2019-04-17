@@ -12,8 +12,25 @@ module.exports = {
         let result = {};
         let status = 200; // status code: OK
 
-        res.status(status).send("TODO: get " 
-            + req.params.username + "'s information")
+        var sql = "SELECT *"
+            + " FROM users"
+            + " WHERE username=?"
+            var inserts = [req.params.username];
+            sql = mysql.format(sql, inserts);
+
+        connection.query(sql, function (error, results, fields) {
+            if (!error && results[0]) {
+                status = 200;
+                result.status = status;
+                result.result = results;
+            } else {
+                status = 404;
+                result.status = status;
+                result.error = error; 
+                result.message = "An error occured in the database."
+            }
+            res.status(status).send(result);
+        });
     },
 
     addUser: (req, res) => {
@@ -35,9 +52,10 @@ module.exports = {
                         result.status = status;
                         result.result = "user created";
                     } else {
-                        status = 500;
+                        status = 400;
                         result.status = status;
                         result.error = error;
+                        result.message = "Username already exists."
                     }
                     res.status(status).send(result);
                 }); 
