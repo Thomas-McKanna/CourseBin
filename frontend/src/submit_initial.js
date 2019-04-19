@@ -64,6 +64,7 @@ class SubmitInitial extends React.Component {
     }
     
     handleSubmit(event) {
+        // delete axios.defaults.headers.common["Authorization"];
         var self = this; // bind "this" so that callbacks can use it
 
         event.preventDefault();
@@ -76,10 +77,6 @@ class SubmitInitial extends React.Component {
         }
 
         var passing_data;
-
-        // format this fookin string man
-        
-        // submit info to api
 
         axios.get("/api/v1/courses/number/"
                     + this.state['course'] + "/school/" 
@@ -96,24 +93,27 @@ class SubmitInitial extends React.Component {
         })
         .catch(function (error) {
             if (error.response.status === 404) {
-                // create new entry
-                axios.post("/api/v1/courses/oauth/token", {
+                // create new entry 
+                const cookies = new Cookies();
+                //axios.defaults.headers.common['Authorization'] = cookies.get('auth');
+                
+                console.log(cookies.get('auth'));
+                axios.post("/api/v1/courses/", {
                     number: self.state['course'], 
                     name: 'default', 
                     year: self.state['year'], 
                     semester: self.state['semester'], 
                     professor: self.state['instructor'], 
                     schoolCode: self.state['school']
-                })
+                },
+                {headers: {
+                    "Authorization": `bearer ${cookies.get('auth')}`
+                }})
                 .then(function(response) {
                     if (response.status === 200){
                         console.log("Nice");
                     }
                 });
-
-                // body contains the fields number, name, year, 
-                // semester, professor, and schoolCode with the 
-                // updated values and id with the course id to update.
 
                 // set parsing data
             }
@@ -126,9 +126,10 @@ class SubmitInitial extends React.Component {
         this.setState({queryString: queryString})
         this.setState({searchWasMade: true})
         
-        // send to next page
-        
 
+        // get to enter full course name
+
+        // send passing data to next page
 
 
         return;
