@@ -26,20 +26,41 @@ class SignUp extends React.Component {
         this.setState({password: event.target.value});
     }
     
-    handleSubmit(event) {        
+    handleSubmit(event) {
+        event.preventDefault();
+        if (this.state.username === "" || this.state.password === "") {
+            console.log("Must input a username and password");
+            return;
+        }
+
+        const self = this;
+        // sign the user up     
         axios.post('/api/v1/users/', {
             username: this.state.username,
             password: this.state.password
         })
         .then(function(response) {
-            if (response.status === '200') {
-                console.log(response);
+            console.log(response.status)
+            if (response.status === 201) {
+                axios.post('/api/v1/users/login', {
+                    username: self.state.username,
+                    password: self.state.password
+                })
+                .then(function(response) {
+                    if (response.status === 200) {
+                        const cookies = new Cookies();
+                        cookies.set('auth', response.data.token)
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
             }
         })
         .catch(function (error) {
             console.log(error);
+            console.log("Username already exists.")
         })
-        event.preventDefault();
     }
 
     render() {

@@ -32,8 +32,9 @@ class Login extends React.Component {
             password: this.state.password
         })
         .then(function(response) {
-            if (response.status === '200') {
-                console.log(response);
+            if (response.status === 200) {
+                const cookies = new Cookies();
+                cookies.set('auth', response.data.token)
             }
         })
         .catch(function (error) {
