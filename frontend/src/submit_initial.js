@@ -75,12 +75,6 @@ class SubmitInitial extends React.Component {
             this.setState({warning: ''});
         }
 
-        console.log("/api/v1/courses/search_course/number/"
-        + this.state['course'] + "/school/" 
-        + this.state['school'] + "/year/" 
-        + this.state['year'] + "/semester/" 
-        + this.state['semester'])
-
         var passing_data;
 
         // format this fookin string man
@@ -94,30 +88,49 @@ class SubmitInitial extends React.Component {
                     + this.state['semester'])
         .then(function(response) {
             if (response.status === 200) {
-                // see if in, and add if need yo
-                if (!response.data.result){
-                    // add to db
-                    
-                    // passing_data set data to pass on
-                } else {
-                    // passing_data = pass to next page
-                }
+                // passing_data set data to pass on
+                // response.data.result
+                
+                
             }
         })
         .catch(function (error) {
+            if (error.response.status === 404) {
+                // create new entry
+                axios.post("/api/v1/courses/oauth/token", {
+                    number: self.state['course'], 
+                    name: 'default', 
+                    year: self.state['year'], 
+                    semester: self.state['semester'], 
+                    professor: self.state['instructor'], 
+                    schoolCode: self.state['school']
+                })
+                .then(function(response) {
+                    if (response.status === 200){
+                        console.log("Nice");
+                    }
+                });
+
+                // body contains the fields number, name, year, 
+                // semester, professor, and schoolCode with the 
+                // updated values and id with the course id to update.
+
+                // set parsing data
+            }
+
             console.log(error);
         });
-
-
-        // send to next page
-        
-
 
         const queryString = this.getQueryString(this.state);
 
         this.setState({queryString: queryString})
         this.setState({searchWasMade: true})
         
+        // send to next page
+        
+
+
+
         return;
     }
 
