@@ -65,22 +65,43 @@ class SubmitInitial extends React.Component {
     
     handleSubmit(event) {
         var self = this; // bind "this" so that callbacks can use it
-        
+
         event.preventDefault();
         if (this.state['course'] === '' || this.state['school'] === '' || this.state['instructor'] === '' || this.state['year'] === '' || this.state['semester'] === '') {
             this.setState({warning: 'Must fill all entries.'});
+            console.log("Not fully filled out.")
             return;
         } else {
             this.setState({warning: ''});
         }
 
+        console.log("/api/v1/courses/search_course/number/"
+        + this.state['course'] + "/school/" 
+        + this.state['school'] + "/year/" 
+        + this.state['year'] + "/semester/" 
+        + this.state['semester'])
 
-        // submit info to api & see if in, if not, add
-        axios.get('/api/v1/schools/names')
+        var passing_data;
+
+        // format this fookin string man
+        
+        // submit info to api
+
+        axios.get("/api/v1/courses/number/"
+                    + this.state['course'] + "/school/" 
+                    + this.state['school'] + "/year/" 
+                    + this.state['year'] + "/semester/" 
+                    + this.state['semester'])
         .then(function(response) {
             if (response.status === 200) {
-                self.setState({schoolOptions: response.data.result});
-                self.setState({school: response.data.result[0]['school_code']})
+                // see if in, and add if need yo
+                if (!response.data.result){
+                    // add to db
+                    
+                    // passing_data set data to pass on
+                } else {
+                    // passing_data = pass to next page
+                }
             }
         })
         .catch(function (error) {
