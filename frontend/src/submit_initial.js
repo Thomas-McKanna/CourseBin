@@ -16,6 +16,10 @@ class SubmitInitial extends React.Component {
     
         this.handleCourseNameChange = this.handleCourseNameChange.bind(this);
         this.handleSchoolNameChange = this.handleSchoolNameChange.bind(this);
+        this.handleInstructorNameChange = this.handleInstructorNameChange.bind(this);
+        this.handleYearNameChange = this.handleYearNameChange.bind(this);
+        this.handleSemesterNameChange = this.handleSemesterNameChange.bind(this);
+        
         this.handleSubmit = this.handleSubmit.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
     }
@@ -34,25 +38,59 @@ class SubmitInitial extends React.Component {
         });
     }
 
+    handleSchoolNameChange(event) {
+        this.setState({school: event.target.value});
+        return;
+    }
+
     handleCourseNameChange(event) {
         this.setState({course: event.target.value});
         return;
     }
 
-    handleSchoolNameChange(event) {
-        this.setState({school: event.target.value});
+    handleInstructorNameChange(event) {
+        this.setState({instructor: event.target.value});
+        return;
+    }
+
+    handleYearNameChange(event) {
+        this.setState({year: event.target.value});
+        return;
+    }
+
+    handleSemesterNameChange(event) {
+        this.setState({semester: event.target.value});
         return;
     }
     
     handleSubmit(event) {
+        var self = this; // bind "this" so that callbacks can use it
+        
         event.preventDefault();
-        if (this.state['course'] === '' || this.state['school'] === '') {
-            this.setState({warning: 'Must provide a course number and '
-                + 'school selection'});
+        if (this.state['course'] === '' || this.state['school'] === '' || this.state['instructor'] === '' || this.state['year'] === '' || this.state['semester'] === '') {
+            this.setState({warning: 'Must fill all entries.'});
             return;
         } else {
             this.setState({warning: ''});
         }
+
+
+        // submit info to api & see if in, if not, add
+        axios.get('/api/v1/schools/names')
+        .then(function(response) {
+            if (response.status === 200) {
+                self.setState({schoolOptions: response.data.result});
+                self.setState({school: response.data.result[0]['school_code']})
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+
+        // send to next page
+        
+
 
         const queryString = this.getQueryString(this.state);
 
@@ -66,6 +104,10 @@ class SubmitInitial extends React.Component {
         var params = []
         params.push('course=' + st['course'])
         params.push('school=' + st['school'])
+        params.push('instructor=' + st['instructor'])
+        params.push('year=' + st['year'])
+        params.push('semester=' + st['semester'])
+        
         var qString = "";
         var i;
         const len = params.length;
@@ -99,6 +141,25 @@ class SubmitInitial extends React.Component {
                         placeholder="CS2300"
                         css_class="input"
                         handleFunc={this.handleCourseNameChange}/>
+                    <FormField
+                        input
+                        label="Instructor Name"
+                        placeholder="Dr. "
+                        css_class="input"
+                        handleFunc={this.handleInstructorNameChange}/>
+                    <FormField 
+                        input
+                        label="Year"
+                        tip={this.courseNameTip}
+                        placeholder="2020"
+                        css_class="input"
+                        handleFunc={this.handleYearNameChange}/>
+                    <FormField
+                        input
+                        label="Semester"
+                        placeholder="Spring or Fall"
+                        css_class="input"
+                        handleFunc={this.handleSemesterNameChange}/>
                     <SubmitButton
                         label="Submit"
                         handleFunc={this.handleSubmit}/>
