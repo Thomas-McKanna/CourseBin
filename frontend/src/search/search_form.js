@@ -1,12 +1,13 @@
 import React from "react";
 import axios from "axios"
-import './index.css'
+import './style.css'
 
 import { Redirect } from "react-router-dom";
 
-import FormField from './util/form_field'
-import SubmitButton from './util/submit_button'
-import Warning from './util/warning'
+import FormField from '../util/form_field'
+import Warning from '../util/warning'
+import SubmitButton from '../util/submit_button'
+
 
 class SearchForm extends React.Component {
     state = {

@@ -1,4 +1,4 @@
-import './index.css'
+import './style.css'
 import SubmissionListItem from './submission_list_item'
 import React from "react";
 import axios from "axios"
@@ -40,10 +40,10 @@ class SearchResults extends React.Component {
         const entries = this.state['entries'];
         var listOfEntries;
         if (entries.length !== 0) {
-            console.log(entries)
             listOfEntries = entries.map((entry) => 
                 <SubmissionListItem
                     key={entry['username'] + entry['course']}
+                    id={entry['id']}
                     courseName={entry['name']}
                     courseNo={entry['number']}
                     school={entry['school_name']}

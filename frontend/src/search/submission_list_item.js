@@ -5,7 +5,11 @@ import {
 import arrow from "./images/submission_arrow.png"
 
 class SubmissionListItem extends React.Component {
+    
     render() {
+        const url = `/submissions/${this.props.id}`
+        console.log(url)
+
         return (
             <li className="submission">
                 <div className="submission_item">
@@ -23,9 +27,10 @@ class SubmissionListItem extends React.Component {
                         </div>
                     </span>
                     <span className="to_submission_btn">
-                        <Link to='/'>
+                        <Link to={url}>
                             <img 
                                 src={arrow}
+                                alt="arrow"
                             />
                         </Link>
                     </span>

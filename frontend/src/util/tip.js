@@ -1,5 +1,5 @@
 import React from "react";
-import "./utils.css";
+import "./style.css";
 
 class Tip extends React.Component {
     render() {

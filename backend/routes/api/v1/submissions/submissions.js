@@ -8,41 +8,40 @@ module.exports = {
         let status = 200; // status code: OK
 
         // first query for submission meta data
-        sql = "SELECT S.username, C.number, C.name, C.year, C.semester, C.professor, SC.school_name"
+        sql = "SELECT S.username, S.description, S.date_created, C.number, C.name, C.year, C.semester, C.professor, SC.school_name"
                 + " FROM submissions AS S LEFT JOIN courses AS C ON S.course_id = C.id"
                 + " LEFT JOIN schools AS SC ON C.school = SC.school_code"
                 + " WHERE S.id = ?"
         sql = mysql.format(sql, req.params.submissionId);
 
         connection.query(sql, function (error, results, fields) {
-            if (!error) {
+            if (!error && results.length) {
                 status = 200;
                 result.status = status;
                 result.result = results;
+                // second query for URLs
+                sql = "SELECT C.url, C.filename from content as C"
+                + " LEFT JOIN submissions AS S ON C.submission_id = S.id"
+                + " WHERE S.id = ?"
+                sql = mysql.format(sql, req.params.submissionId);
+                connection.query(sql, function (error, results, fields) {
+                    if (!error) {
+                        status = 200;
+                        result.related_content = results;
+                    } else {
+                        status = 404;
+                        result.status = status;
+                        result.error = error; 
+                        result.message = "Server error"
+                    }
+                    res.status(status).send(result);
+                });
             } else {
                 status = 404;
                 result.status = status;
-                result.error = error; 
-            }
-            
-            // second query for URLs
-            sql = "SELECT C.url from content as C"
-                + " LEFT JOIN submissions AS S ON C.submission_id = S.id"
-                + " WHERE S.id = ?"
-            sql = mysql.format(sql, req.params.submissionId);
-            connection.query(sql, function (error, results, fields) {
-                if (!error) {
-                    status = 200;
-                    result.status = status;
-                    result.related_content = results;
-                } else {
-                    status = 404;
-                    result.status = status;
-                    result.error = error; 
-                    result.message = "Submission may not exist."
-                }
+                result.error = error;
                 res.status(status).send(result);
-            });
+            }
         });
     },
 
