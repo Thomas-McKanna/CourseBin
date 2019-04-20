@@ -16,7 +16,7 @@ class Content extends React.Component {
         return (
             <li className="content_item">
                 <div>
-                    <Rating className="rating"></Rating>
+                    <Rating className="rating" loggedIn={this.props.loggedIn}/>
                      <span className="filename">{this.props.filename}</span>
                      <button className="download_btn" onClick={this.downloadContent}>
                          Download

@@ -1,6 +1,7 @@
 import './style.css'
 import React from "react";
 import axios from "axios"
+import { Redirect } from "react-router-dom";
 
 import fullStar from "./images/filled_star.png"
 import halfFullStar from "./images/half_filled_star.png"
@@ -10,12 +11,32 @@ class Rating extends React.Component {
 
     state = {
         stars: 9,
+        needsToLogIn: false,
+    }
+
+    constructor(props) {
+        super(props);
+
+        this.rate = this.rate.bind(this);
+    }
+
+    componentDidMount() {
+        var self = this; // bind "this" so that callbacks can use it
+        // TODO: check if the user has already rated, this piece of content,
+        // and if so, set the rating to what they rated it
     }
 
     render() {
         const stars = this.makeStars(this.state['stars'])
         return (
+            
             <span className="star_grouping">
+                {this.state['needsToLogIn'] && 
+                    <Redirect push 
+                        to={{
+                            pathname: "/login",
+                        }} />
+                }
                 {stars}
             </span>
         );
@@ -50,7 +71,11 @@ class Rating extends React.Component {
     }
 
     rate(event, index) {
-        console.log(index)
+        if (!this.props.loggedIn) {
+            this.setState( {needsToLogIn: true })
+        }
+
+        // TODO: change the rating state, then submit the SQL query
         return;
     }
 }

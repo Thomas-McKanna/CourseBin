@@ -26,7 +26,8 @@ class Login extends React.Component {
         this.setState({password: event.target.value});
     }
     
-    handleSubmit(event) {        
+    handleSubmit(event) {
+        var self = this; // bind "this" so that callbacks can use it    
         axios.post('/api/v1/users/login/', {
             username: this.state.username,
             password: this.state.password
@@ -34,7 +35,8 @@ class Login extends React.Component {
         .then(function(response) {
             if (response.status === 200) {
                 const cookies = new Cookies();
-                cookies.set('auth', response.data.token)
+                cookies.set('auth', response.data.token);
+                self.props.handleLogin(true);
             }
         })
         .catch(function (error) {

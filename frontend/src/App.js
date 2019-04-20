@@ -15,9 +15,15 @@ import SignUp from "./signup"
 
 class App extends React.Component {
 
-  state = {
-    loggedIn: false,
-  }
+    state = {
+        loggedIn: false,
+    }
+
+    constructor(props) {
+        super(props);
+
+        this.handleLogin = this.handleLogin.bind(this);
+    }
 
   render() {
     const headerLinks = [
@@ -36,8 +42,18 @@ class App extends React.Component {
                 <Route path='/search/form' component={SearchForm} />
                 <Route path='/search' component={SearchResults} />
                 <Route path='/submit_initial' component={SubmitInitial} />
-                <Route path='/submissions/:id' component={Submission} />
-                <Route path='/login' component={Login} />
+                <Route path='/submissions/:id' 
+                    render={(props) => 
+                        <Submission 
+                            {...props} 
+                            loggedIn={this.state['loggedIn']} />
+                        }/>
+                <Route path='/login' 
+                    render={(props) => 
+                        <Login 
+                            {...props} 
+                            handleLogin={this.handleLogin} />
+                        }/> />
                 <Route path='/signup' component = {SignUp} />
                 <Route component={NotFound} />
               </Switch>
@@ -46,7 +62,14 @@ class App extends React.Component {
       </BrowserRouter>
     );
   }
+
+  handleLogin(status) {
+      this.setState({ loggedIn: status })
+  }
+
 }
+
+
 
 function NotFound() {
   return <h2>Page Not Found.</h2>;

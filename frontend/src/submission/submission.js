@@ -18,6 +18,7 @@ class Submission extends React.Component {
     componentDidMount() {
         var self = this; // bind "this" so that callbacks can use it
         const apiRequest = `/api/v1/submissions/${this.id}`
+        console.log(apiRequest)
         axios.get(apiRequest)
         .then(function(response) {
             if (response.status === 200) {
@@ -58,11 +59,11 @@ class Submission extends React.Component {
         const meta = this.state['metadata']
         const content = this.state['content']
         var listOfContent;
-
         if (content.length !== 0) {
             listOfContent = content.map((item) => 
                 <Content 
                     key={item.url}
+                    loggedIn={this.props.loggedIn}
                     filename={item.filename}
                     url={item.url}/>
             );
