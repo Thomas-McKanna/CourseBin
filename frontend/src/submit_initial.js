@@ -94,6 +94,14 @@ class SubmitInitial extends React.Component {
                     + this.state['semester'])
         .catch(function (error) {
             if (error.response.status === 404) {
+
+                // before submitting to db ensure coursename exists
+                if (self.state['coursename'] === '') {
+                    self.setState({warning: 'Must fill course name for non existant course.'});
+                    console.log("Must fill course name for non existant course.")
+                    return;  // how to completely break out
+                }
+
                 const cookies = new Cookies();
 
                 console.log(cookies.get('auth'));
@@ -118,6 +126,12 @@ class SubmitInitial extends React.Component {
             console.log(error);
         });
 
+        if(this.state['coursename'] === '') {
+            self.setState({warning: 'Must fill course name for non existant course.'});
+            console.log("Must fill course name for non existant course.")
+            return;  // how to completely break out
+        }
+        
         const queryString = this.getQueryString(this.state);
 
         this.setState({queryString: queryString});
