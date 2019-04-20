@@ -4,12 +4,12 @@ import {
   BrowserRouter, 
   Route, 
   Switch,
-  Redirect,
 } from "react-router-dom";
 import Header from "./header"
-import SearchForm from "./search_form"
-import SearchResults from "./search_results"
+import SearchForm from "./search/search_form"
+import SearchResults from "./search/search_results"
 import SubmitInitial from "./submit_initial"
+import Submission from "./submission/submission"
 import Login from "./login"
 import SignUp from "./signup"
 
@@ -36,6 +36,7 @@ class App extends React.Component {
                 <Route path='/search/form' component={SearchForm} />
                 <Route path='/search' component={SearchResults} />
                 <Route path='/submit_initial' component={SubmitInitial} />
+                <Route path='/submissions/:id' component={Submission} />
                 <Route path='/login' component={Login} />
                 <Route path='/signup' component = {SignUp} />
                 <Route component={NotFound} />
@@ -45,10 +46,6 @@ class App extends React.Component {
       </BrowserRouter>
     );
   }
-}
-
-function Home() {
-  return <h2>Home</h2>;
 }
 
 function NotFound() {

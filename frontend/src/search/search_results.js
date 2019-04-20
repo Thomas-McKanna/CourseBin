@@ -1,4 +1,4 @@
-import './index.css'
+import './style.css'
 import SubmissionListItem from './submission_list_item'
 import React from "react";
 import axios from "axios"
@@ -12,7 +12,6 @@ class SearchResults extends React.Component {
     }
 
     componentDidMount() {
-        
         const parsed = queryString.parse(this.props.location['search']);
         const course = parsed['course'] ? parsed['course'] : 'none';
         const school = parsed['school'] ? parsed['school'] : 'none';
@@ -41,10 +40,10 @@ class SearchResults extends React.Component {
         const entries = this.state['entries'];
         var listOfEntries;
         if (entries.length !== 0) {
-            console.log(entries)
             listOfEntries = entries.map((entry) => 
                 <SubmissionListItem
                     key={entry['username'] + entry['course']}
+                    id={entry['id']}
                     courseName={entry['name']}
                     courseNo={entry['number']}
                     school={entry['school_name']}
@@ -62,7 +61,9 @@ class SearchResults extends React.Component {
         }
 
         return (
-            <div>
+            <div className="search_results">
+                <h2>Search Results</h2>
+                <hr></hr>
                 <ul className="submission">
                     {listOfEntries}
                 </ul>
