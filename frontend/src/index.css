@@ -44,7 +44,8 @@ html {
 }
 
 #outer_body {
-  background-image: url("pipes.png");
+  height: 100%;
+  background-image: url("./images/pipes.png");
 }
 
 #menu {
@@ -99,14 +100,88 @@ html {
 
 .submission {
   list-style: none;
+  padding: 10px 10px;
 }
 
+
 .submission div {
-  background-color: #d6fdc7;
   border-style: solid;
   border-width: 1px;
-  margin: 1em;
-  padding: 2em;
+  margin: 0 auto;
 }
+
+
+.submission_item div {
+    height: 100px;
+    margin-top: 10px;
+}
+
+.submission_item ul li {
+    height: 100px;
+    padding: 0;
+}
+
+.submission_summary {
+    display: inline-block;
+    width: 84.5%;
+    height: 100px;
+    padding: 0;
+}
+
+.search_results h2 {
+    margin-left: 20px;
+    margin-bottom: 0px;
+}
+
+.submission_summary div {
+    margin: 0;
+    padding: 5px;
+    height: 21%;
+}
+
+.name_row {
+    background-color: #d6ffc6;
+    padding: 5px;
+}
+
+.number {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.time_prof {
+    background-color: #6fd36b;
+}
+
+.time {
+    margin-right: 10px;
+}
+
+.school {
+    background-color: #ffba60;
+    font-style: italic;
+}
+
+.to_submission_btn {
+    background-color: #28da28;
+    border-style: solid;
+    width: 15%;
+    height: 100px;
+    border-width: 1px;
+    padding: 0;
+    text-align: center;
+    float: right;
+}
+
+.to_submission_btn a {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.to_submission_btn img {
+    height: 100px;
+}
+
+
 
 
