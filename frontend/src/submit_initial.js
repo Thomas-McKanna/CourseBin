@@ -43,8 +43,13 @@ class SubmitInitial extends React.Component {
         return;
     }
 
-    handleCourseNameChange(event) {
+    handleCourseNumberChange(event) {
         this.setState({course: event.target.value});
+        return;
+    }
+
+    handleCourseNameChange(event) {
+        this.setState({coursename: event.target.value});
         return;
     }
 
@@ -75,47 +80,32 @@ class SubmitInitial extends React.Component {
             this.setState({warning: ''});
         }
 
-        var passing_data;
-
-        // format this fookin string man
-        
-        // submit info to api
-
         axios.get("/api/v1/courses/number/"
                     + this.state['course'] + "/school/" 
                     + this.state['school'] + "/year/" 
                     + this.state['year'] + "/semester/" 
                     + this.state['semester'])
-        .then(function(response) {
-            if (response.status === 200) {
-                // passing_data set data to pass on
-                // response.data.result
-                
-                
-            }
-        })
         .catch(function (error) {
             if (error.response.status === 404) {
-                // create new entry
-                axios.post("/api/v1/courses/oauth/token", {
+                const cookies = new Cookies();
+
+                console.log(cookies.get('auth'));
+                axios.post("/api/v1/courses/", {
                     number: self.state['course'], 
-                    name: 'default', 
+                    name: self.state['coursename'], 
                     year: self.state['year'], 
                     semester: self.state['semester'], 
                     professor: self.state['instructor'], 
                     schoolCode: self.state['school']
-                })
+                },
+                {headers: {
+                    "Authorization": `bearer ${cookies.get('auth')}`
+                }})
                 .then(function(response) {
                     if (response.status === 200){
                         console.log("Nice");
                     }
                 });
-
-                // body contains the fields number, name, year, 
-                // semester, professor, and schoolCode with the 
-                // updated values and id with the course id to update.
-
-                // set parsing data
             }
 
             console.log(error);
@@ -126,9 +116,10 @@ class SubmitInitial extends React.Component {
         this.setState({queryString: queryString})
         this.setState({searchWasMade: true})
         
-        // send to next page
-        
 
+        // get to enter full course name
+
+        // send passing data to next page redirects
 
 
         return;
@@ -170,9 +161,16 @@ class SubmitInitial extends React.Component {
                         handleFunc={this.handleSchoolNameChange}/>
                     <FormField 
                         input
-                        label="Course Name"
+                        label="Course Number"
                         tip={this.courseNameTip}
                         placeholder="CS2300"
+                        css_class="input"
+                        handleFunc={this.handleCourseNumberChange}/>
+                    <FormField 
+                        input
+                        label="Course Name"
+                        tip={this.courseNameTip}
+                        placeholder="input if course doesnt exist"
                         css_class="input"
                         handleFunc={this.handleCourseNameChange}/>
                     <FormField
