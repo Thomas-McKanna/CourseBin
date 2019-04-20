@@ -21,9 +21,11 @@
 .star {
     background-color: transparent;
     border: none;
-    height: 12px;
-    width: 12px;
-    margin-right: 2px;
+    padding:0px
+}
+
+.star:focus {
+    outline: 0;
 }
 
 .star button span {

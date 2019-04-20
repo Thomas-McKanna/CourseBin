@@ -101,3 +101,14 @@ margin: 0 auto;
 .to_submission_btn img {
     height: 100px;
 }
+
+.add_submission {
+    padding: 5px;
+    background-color: #ffcb86;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.add_submission button {
+    float: right;
+}

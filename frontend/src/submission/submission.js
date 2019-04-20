@@ -78,6 +78,10 @@ class Submission extends React.Component {
                 <div className="upload_info">
                     Uploaded by {meta['username']} on {meta['date_created']}
                 </div>
+                <div className="add_submission">
+                    <span>Have you taken this course?</span>
+                    <button>Add Submission</button>
+                </div>
                 <div className="upper">
                     <div className="title">
                         <span className="number">{meta['number']}</span>
