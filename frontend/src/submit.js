@@ -43,6 +43,7 @@ class Submit extends React.Component {
     }
 
     render() {
+        console.log(this.state.test)
         return (
             <div>
                 <h2>Login Page</h2>

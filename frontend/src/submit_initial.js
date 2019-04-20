@@ -10,11 +10,16 @@ class SubmitInitial extends React.Component {
         super(props);
         this.state = {
             schoolOptions: [],
-            course: '',
+            coursenumber: '',
             school: '',
+            year: '',
+            semester: '',
+            coursename: '',
+            instructor: '',
         };
     
         this.handleCourseNameChange = this.handleCourseNameChange.bind(this);
+        this.handleCourseNumberChange = this.handleCourseNumberChange.bind(this);
         this.handleSchoolNameChange = this.handleSchoolNameChange.bind(this);
         this.handleInstructorNameChange = this.handleInstructorNameChange.bind(this);
         this.handleYearNameChange = this.handleYearNameChange.bind(this);
@@ -44,7 +49,7 @@ class SubmitInitial extends React.Component {
     }
 
     handleCourseNumberChange(event) {
-        this.setState({course: event.target.value});
+        this.setState({coursenumber: event.target.value});
         return;
     }
 
@@ -72,7 +77,9 @@ class SubmitInitial extends React.Component {
         var self = this; // bind "this" so that callbacks can use it
 
         event.preventDefault();
-        if (this.state['course'] === '' || this.state['school'] === '' || this.state['instructor'] === '' || this.state['year'] === '' || this.state['semester'] === '') {
+        if (this.state['coursenumber'] === '' || this.state['school'] === '' || 
+            this.state['instructor'] === '' || this.state['year'] === '' || 
+            this.state['semester'] === '') {
             this.setState({warning: 'Must fill all entries.'});
             console.log("Not fully filled out.")
             return;
@@ -81,7 +88,7 @@ class SubmitInitial extends React.Component {
         }
 
         axios.get("/api/v1/courses/number/"
-                    + this.state['course'] + "/school/" 
+                    + this.state['coursenumber'] + "/school/" 
                     + this.state['school'] + "/year/" 
                     + this.state['year'] + "/semester/" 
                     + this.state['semester'])
@@ -91,7 +98,7 @@ class SubmitInitial extends React.Component {
 
                 console.log(cookies.get('auth'));
                 axios.post("/api/v1/courses/", {
-                    number: self.state['course'], 
+                    number: self.state['coursenumber'], 
                     name: self.state['coursename'], 
                     year: self.state['year'], 
                     semester: self.state['semester'], 
@@ -113,14 +120,11 @@ class SubmitInitial extends React.Component {
 
         const queryString = this.getQueryString(this.state);
 
-        this.setState({queryString: queryString})
-        this.setState({searchWasMade: true})
+        this.setState({queryString: queryString});
+        this.setState({searchWasMade: true});
         
-
-        // get to enter full course name
-
-        // send passing data to next page redirects
-
+        // send passing data to next page
+        this.props.history.push('/submit')
 
         return;
     }
@@ -162,14 +166,12 @@ class SubmitInitial extends React.Component {
                     <FormField 
                         input
                         label="Course Number"
-                        tip={this.courseNameTip}
                         placeholder="CS2300"
                         css_class="input"
                         handleFunc={this.handleCourseNumberChange}/>
                     <FormField 
                         input
                         label="Course Name"
-                        tip={this.courseNameTip}
                         placeholder="input if course doesnt exist"
                         css_class="input"
                         handleFunc={this.handleCourseNameChange}/>
@@ -182,7 +184,6 @@ class SubmitInitial extends React.Component {
                     <FormField 
                         input
                         label="Year"
-                        tip={this.courseNameTip}
                         placeholder="2020"
                         css_class="input"
                         handleFunc={this.handleYearNameChange}/>
@@ -194,7 +195,7 @@ class SubmitInitial extends React.Component {
                         handleFunc={this.handleSemesterNameChange}/>
                     <SubmitButton
                         label="Submit"
-                        handleFunc={this.handleSubmit}/>
+                        handleFunc={this.handleSubmit}/>                    
                 </form>
             </div>
         );
