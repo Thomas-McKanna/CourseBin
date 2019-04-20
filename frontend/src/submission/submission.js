@@ -79,16 +79,20 @@ class Submission extends React.Component {
                     Uploaded by {meta['username']} on {meta['date_created']}
                 </div>
                 <div className="upper">
-                    <span className="number">{meta['number']}</span>
-                    <span className="name">{meta['name']}</span>
-                    <br/>
-                    <span className="time">Happened: {meta['semester']} {meta['year']}</span>
-                    <br/>
-                    <span className="professor">Taught by: {meta['professor']}</span>
-                    <br/>
-                    <span className="desc_label">Description: </span>
+                    <div className="title">
+                        <span className="number">{meta['number']}</span>
+                        <span className="name">{meta['name']}</span>
+                    </div>
+                    <div className="info">
+                        <span className="time">Took place: <b>{meta['semester']} {meta['year']}</b></span>
+                        <br/>
+                        <span className="professor">Taught by: <b>{meta['professor']}</b></span>
+                    </div>
                     <div className="description">
-                        {meta['description']}
+                        <span className="desc_label">Description: </span>
+                        <div className="description_box">
+                            {meta['description']}
+                        </div>
                     </div>
                 </div>
                 <div className="lower">

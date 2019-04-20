@@ -28,12 +28,18 @@ class Content extends React.Component {
 
     downloadContent() {
         var self = this; // bind "this" so that callbacks can use it
-        
-        axios.get(`/api/v1/download/${this.props.url}`)
-        .then(function(response) {
-            if (response.status === 200) {
-                console.log(response)
-            }
+        axios({
+            url: `/api/v1/download/${this.props.url}`,
+            method: 'GET',
+            responseType: 'blob',
+        }).then(function(response) {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', self.props.filename);
+            document.body.appendChild(link);
+            link.click();
+            link.parentNode.removeChild(link);
         })
         .catch(function (error) {
             console.log(error);
