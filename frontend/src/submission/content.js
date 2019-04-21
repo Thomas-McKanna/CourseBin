@@ -4,7 +4,7 @@ import React from "react";
 import axios from "axios"
 import { Redirect } from "react-router-dom";
 
-import Rating from "./rating"
+import Rating from "../util/rating"
 
 class Content extends React.Component {
 
@@ -66,7 +66,6 @@ class Content extends React.Component {
     }
 
     getRating(url, callback) {
-        var self = this; // bind "this" so that callbacks can use it
         const apiRequest = `/api/v1/rate/content/${url}`
         axios.get(apiRequest)
         .then(function(response) {

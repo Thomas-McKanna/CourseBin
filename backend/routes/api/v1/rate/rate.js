@@ -7,15 +7,19 @@ module.exports = {
         let result = {};
         let status = 200; // status code: OK
 
-        sql = "SELECT SUM(rating) total_rating FROM development.content"
+        sql = "SELECT rating FROM development.content"
             + " NATURAL JOIN development.ratings WHERE submission_id=?"
         sql = mysql.format(sql, req.params.submissionId);
 
         connection.query(sql, function (error, results, fields) {
             if (!error && results[0]) {
                 status = 200;
+                sum = 0
+                for (r in results) {
+                    sum += results[r]['rating']
+                }
                 result.status = status;
-                result.result = results;
+                result.result = parseInt(Math.round(sum / results.length));
             } else {
                 status = 404;
                 result.status = status;
@@ -42,7 +46,7 @@ module.exports = {
                     sum += results[r]['rating']
                 }
                 result.status = status;
-                result.result = parseInt(sum / results.length);
+                result.result = parseInt(Math.round(sum / results.length));
             } else {
                 console.log("here")
                 status = 404;
