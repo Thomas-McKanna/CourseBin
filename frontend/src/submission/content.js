@@ -1,22 +1,41 @@
 import './style.css'
+import Cookies from 'universal-cookie';
 import React from "react";
 import axios from "axios"
+import { Redirect } from "react-router-dom";
 
 import Rating from "./rating"
 
 class Content extends React.Component {
 
+    state = {
+        needsToLogIn: false,
+    }
+
     constructor(props) {
         super(props)
 
         this.downloadContent = this.downloadContent.bind(this);
+        this.rate = this.rate.bind(this);
     }
 
     render() {
         return (
             <li className="content_item">
                 <div>
-                    <Rating className="rating" loggedIn={this.props.loggedIn}/>
+                    {this.state['needsToLogIn'] && 
+                        <Redirect push 
+                            to={{
+                                pathname: "/login",
+                            }} />
+                    }
+                    <Rating 
+                        className="rating" 
+                        loggedIn={this.props.loggedIn}
+                        id={this.props.url}
+                        submission={this.props.submission}
+                        getValue={this.getRating} 
+                        setStars={this.rate} />
                      <span className="filename">{this.props.filename}</span>
                      <button className="download_btn" onClick={this.downloadContent}>
                          Download
@@ -44,6 +63,48 @@ class Content extends React.Component {
         .catch(function (error) {
             console.log(error);
         });
+    }
+
+    getRating(url, callback) {
+        var self = this; // bind "this" so that callbacks can use it
+        const apiRequest = `/api/v1/rate/content/${url}`
+        axios.get(apiRequest)
+        .then(function(response) {
+            if (response.status === 200){
+                const numStars = response.data.result;
+                callback(numStars)
+            }
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+
+    rate(e, url, index, callback) {
+        if (!this.props.loggedIn) {
+            this.setState( {needsToLogIn: true })
+            return;
+        }
+        
+
+        callback((index+1)*2)
+        
+        const cookies = new Cookies();
+        const apiRequest = `/api/v1/rate/content/${url}/submission/`
+            + `${this.props.submission}/rating/${(index+1)*2}`
+        axios.post(apiRequest, {},
+            { headers: {
+                "Authorization": `bearer ${cookies.get('auth')}`
+            }
+        })
+        .then(function(response) {
+            if (response.status === 200){
+                // success
+            }
+        }).catch(function (error) {
+            console.log(error);
+        });
+
+        return;
     }
 }
 

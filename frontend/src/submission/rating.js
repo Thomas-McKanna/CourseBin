@@ -1,7 +1,5 @@
 import './style.css'
 import React from "react";
-import axios from "axios"
-import { Redirect } from "react-router-dom";
 
 import fullStar from "./images/filled_star.png"
 import halfFullStar from "./images/half_filled_star.png"
@@ -10,20 +8,22 @@ import emptyStar from "./images/unfilled_star.png"
 class Rating extends React.Component {
 
     state = {
-        stars: 9,
+        stars: 10,
         needsToLogIn: false,
     }
 
     constructor(props) {
         super(props);
 
-        this.rate = this.rate.bind(this);
+        this.setStarState = this.setStarState.bind(this);
     }
 
     componentDidMount() {
-        var self = this; // bind "this" so that callbacks can use it
-        // TODO: check if the user has already rated, this piece of content,
-        // and if so, set the rating to what they rated it
+        this.props.getValue(this.props.id, this.setStarState)
+    }
+
+    setStarState(value) {
+        this.setState({ stars: value })
     }
 
     render() {
@@ -31,12 +31,6 @@ class Rating extends React.Component {
         return (
             
             <span className="star_grouping">
-                {this.state['needsToLogIn'] && 
-                    <Redirect push 
-                        to={{
-                            pathname: "/login",
-                        }} />
-                }
                 {stars}
             </span>
         );
@@ -45,6 +39,8 @@ class Rating extends React.Component {
     makeStars(rating) {
         var starRatings = []
         var i = 5;
+        // determines how many filled stars to display
+        // (each filled star takes '2' rating)
         while (i > 0) {
             if (rating >= 2) {
                 starRatings.push(fullStar);
@@ -63,20 +59,11 @@ class Rating extends React.Component {
                 <img 
                     src={starRating}
                     alt="star" 
-                    onClick={((e) => this.rate(e, index))} />
+                    onClick={((e) => this.props.setStars(e, this.props.id, index, this.setStarState))} />
             </button>
         );
 
         return stars;
-    }
-
-    rate(event, index) {
-        if (!this.props.loggedIn) {
-            this.setState( {needsToLogIn: true })
-        }
-
-        // TODO: change the rating state, then submit the SQL query
-        return;
     }
 }
 

@@ -56,7 +56,7 @@ class SearchResults extends React.Component {
         }
         else {
             listOfEntries = (
-                <li>Nothing yet</li>
+                <li>Loading...</li>
             )
         }
 

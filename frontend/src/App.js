@@ -8,7 +8,7 @@ import {
 import Header from "./header"
 import SearchForm from "./search/search_form"
 import SearchResults from "./search/search_results"
-import SubmitInitial from "./submit_initial"
+import SubmitInitial from "./submit/submit_initial"
 import Submission from "./submission/submission"
 import Login from "./login"
 import SignUp from "./signup"
@@ -16,7 +16,7 @@ import SignUp from "./signup"
 class App extends React.Component {
 
     state = {
-        loggedIn: false,
+        loggedIn: true, // set to false after debugging
     }
 
     constructor(props) {

@@ -1,9 +1,9 @@
 import Cookies from 'universal-cookie';
 import React from "react";
 import axios from "axios"
-import './index.css'
-import FormField from './util/form_field'
-import SubmitButton from './util/submit_button'
+import './style.css'
+import FormField from '../util/form_field'
+import SubmitButton from '../util/submit_button'
 
 class SubmitInitial extends React.Component {
     constructor(props) {
@@ -167,7 +167,7 @@ class SubmitInitial extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="course_lookup" >
                 <h2>Course Lookup</h2>
                 <form onSubmit={this.handleSubmit}>
                     <FormField

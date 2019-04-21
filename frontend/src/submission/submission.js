@@ -1,6 +1,7 @@
 import './style.css'
 import React from "react";
 import axios from "axios"
+import { Redirect } from "react-router-dom";
 
 import Content from "./content"
 
@@ -8,11 +9,15 @@ class Submission extends React.Component {
 
     state = {
         contentLoaded: false,
+        wantsToSubmit: false,
     }
 
     constructor(props) {
         super(props);
         this.id = props.match.params['id']
+
+        this.buildBody = this.buildBody.bind(this);
+        this.addSubmission = this.addSubmission.bind(this);
     }
 
     componentDidMount() {
@@ -65,7 +70,8 @@ class Submission extends React.Component {
                     key={item.url}
                     loggedIn={this.props.loggedIn}
                     filename={item.filename}
-                    url={item.url}/>
+                    url={item.url}
+                    submission={this.id} />
             );
         }
         else {
@@ -76,12 +82,18 @@ class Submission extends React.Component {
 
         return (
             <div>
+                {this.state['wantsToSubmit'] && 
+                    <Redirect push 
+                        to={{
+                            pathname: "/", // TODO: Go to submission page for this course
+                        }} />
+                }
                 <div className="upload_info">
                     Uploaded by {meta['username']} on {meta['date_created']}
                 </div>
                 <div className="add_submission">
                     <span>Have you taken this course?</span>
-                    <button>Add Submission</button>
+                    <button onClick={this.addSubmission}>Add Submission</button>
                 </div>
                 <div className="upper">
                     <div className="title">
@@ -107,6 +119,10 @@ class Submission extends React.Component {
                 </div>
             </div>
         );
+    }
+
+    addSubmission() {
+        this.setState({ wantsToSubmit: true })
     }
 }
 
