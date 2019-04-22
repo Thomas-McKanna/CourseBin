@@ -10,8 +10,8 @@ import SearchForm from "./search/search_form"
 import SearchResults from "./search/search_results"
 import SubmitInitial from "./submit/submit_initial"
 import Submission from "./submission/submission"
-import Login from "./login"
-import SignUp from "./signup"
+import Login from "./authentication/login"
+import SignUp from "./authentication/signup"
 
 class App extends React.Component {
 

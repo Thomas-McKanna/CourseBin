@@ -1,11 +1,11 @@
 import Cookies from 'universal-cookie';
 import React from "react";
 import axios from "axios"
-import './index.css'
-import FormField from './util/form_field'
-import SubmitButton from './util/submit_button'
+import './style.css'
+import FormField from '../util/form_field'
+import SubmitButton from '../util/submit_button'
 
-class SignUp extends React.Component {
+class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -27,46 +27,28 @@ class SignUp extends React.Component {
     }
     
     handleSubmit(event) {
-        event.preventDefault();
-        if (this.state.username === "" || this.state.password === "") {
-            console.log("Must input a username and password");
-            return;
-        }
-
-        const self = this;
-        // sign the user up     
-        axios.post('/api/v1/users/', {
+        var self = this; // bind "this" so that callbacks can use it    
+        axios.post('/api/v1/users/login/', {
             username: this.state.username,
             password: this.state.password
         })
         .then(function(response) {
-            console.log(response.status)
-            if (response.status === 201) {
-                axios.post('/api/v1/users/login', {
-                    username: self.state.username,
-                    password: self.state.password
-                })
-                .then(function(response) {
-                    if (response.status === 200) {
-                        const cookies = new Cookies();
-                        cookies.set('auth', response.data.token)
-                    }
-                })
-                .catch(function (error) {
-                    console.log(error);
-                })
+            if (response.status === 200) {
+                const cookies = new Cookies();
+                cookies.set('auth', response.data.token);
+                self.props.handleLogin(true);
             }
         })
         .catch(function (error) {
             console.log(error);
-            console.log("Username already exists.")
         })
+        event.preventDefault();
     }
 
     render() {
         return (
-            <div>
-                <h2>Sign Up</h2>
+            <div className="login_form">
+                <h2>Log In</h2>
                 <form onSubmit={this.handleSubmit}>
                     <FormField 
                         input
@@ -81,7 +63,7 @@ class SignUp extends React.Component {
                         css_class="input"
                         handleFunc={this.handlePasswordChange}/>
                     <SubmitButton
-                        label="Submit"
+                        label="Log In"
                         handleFunc={this.handleSubmit}/>
                 </form>
             </div>
@@ -89,4 +71,4 @@ class SignUp extends React.Component {
     }
 }
 
-export default SignUp;
+export default Login;
