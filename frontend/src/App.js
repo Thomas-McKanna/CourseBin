@@ -75,7 +75,7 @@ class App extends React.Component {
                                     {...props} 
                                     handleLogin={this.handleLogin} />
                                 }/> /> />
-                        <Route path='/' component={Splash} />
+                        <Route exact path='/' component={Splash} />
                         <Route component={NotFound} />
                     </Switch>
                 </div>
