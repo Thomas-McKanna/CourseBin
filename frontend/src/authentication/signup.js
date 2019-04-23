@@ -50,6 +50,9 @@ class SignUp extends React.Component {
                     if (response.status === 200) {
                         const cookies = new Cookies();
                         cookies.set('auth', response.data.token)
+                        cookies.set('username', self.state.username)
+                        self.props.handleLogin(true);
+                        self.props.history.goBack();
                     }
                 })
                 .catch(function (error) {

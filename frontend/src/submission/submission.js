@@ -23,7 +23,6 @@ class Submission extends React.Component {
     componentDidMount() {
         var self = this; // bind "this" so that callbacks can use it
         const apiRequest = `/api/v1/submissions/${this.id}`
-        console.log(apiRequest)
         axios.get(apiRequest)
         .then(function(response) {
             if (response.status === 200) {

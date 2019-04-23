@@ -62,6 +62,14 @@ html {
 
 .right {
   float: right;
+  color: #ffffff;
+}
+
+.nav_label {
+    border-style: solid;
+    border-width: 1px;
+    padding: 5px;
+    margin-top:18px;
 }
 
 #menu li a {
@@ -91,6 +99,23 @@ html {
 #navigation {
   display: inline-block;
   vertical-align: middle;
+}
+
+.not_found {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.not_found img {
+    height: 300px;
+    border-style: solid;
+    border-width: 10px;
+    border-color: #00b900;
+}
+
+.splash_button {
+    margin: 10px;
+    padding: 10px;
 }
 
 

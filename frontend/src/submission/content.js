@@ -31,7 +31,6 @@ class Content extends React.Component {
                     }
                     <Rating 
                         className="rating" 
-                        loggedIn={this.props.loggedIn}
                         id={this.props.url}
                         submission={this.props.submission}
                         getValue={this.getRating} 
@@ -84,7 +83,7 @@ class Content extends React.Component {
             return;
         }
         
-
+        // let the Rating object know what it should set its stars to
         callback((index+1)*2)
         
         const cookies = new Cookies();

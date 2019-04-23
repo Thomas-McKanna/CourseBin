@@ -4,6 +4,8 @@ import {
   BrowserRouter, 
   Route, 
   Switch,
+  Link,
+  Redirect,
 } from "react-router-dom";
 import Header from "./header"
 import SearchForm from "./search/search_form"
@@ -12,67 +14,132 @@ import SubmitInitial from "./submit/submit_initial"
 import Submission from "./submission/submission"
 import Login from "./authentication/login"
 import SignUp from "./authentication/signup"
+import notFoundImg from "./images/404_not_found.jpg"
+import Cookies from 'universal-cookie';
 
 class App extends React.Component {
 
     state = {
-        loggedIn: true, // set to false after debugging
+        loggedIn: false,
     }
 
     constructor(props) {
         super(props);
 
+        const cookies = new Cookies();
+        if (cookies.get("auth")) {
+            this.state.loggedIn = true;
+        }
         this.handleLogin = this.handleLogin.bind(this);
     }
 
-  render() {
-    const headerLinks = [
-      {label: 'Search', link: '/search/form', float: 'left'},
-      {label: 'Submit', link: '/submit_initial/', float: 'left'},
-      {label: 'Sign Up', link: '/signup/', float: 'right'},
-      {label: 'Log In', link: '/login/', float: 'right'},
-    ]
+    render() {
+        const headerLinks = [
+            {label: 'Search', link: '/search/form', float: 'left'},
+            {label: 'Submit', link: '/submit_initial/', float: 'left'},
+        ]
 
-    return (
-      <BrowserRouter>
-        <div id="outer_body">
-          <Header id="navigation" links={headerLinks}/>
-            <div id="inner_body">
-              <Switch>
-                <Route path='/search/form' component={SearchForm} />
-                <Route path='/search' component={SearchResults} />
-                <Route path='/submit_initial' component={SubmitInitial} />
-                <Route path='/submissions/:id' 
-                    render={(props) => 
-                        <Submission 
-                            {...props} 
-                            loggedIn={this.state['loggedIn']} />
-                        }/>
-                <Route path='/login' 
-                    render={(props) => 
-                        <Login 
-                            {...props} 
-                            handleLogin={this.handleLogin} />
-                        }/> />
-                <Route path='/signup' component = {SignUp} />
-                <Route component={NotFound} />
-              </Switch>
+        return (
+        <BrowserRouter>
+            <div id="outer_body">
+                <Header 
+                    id="navigation" 
+                    items={headerLinks} 
+                    loggedIn={this.state.loggedIn} />
+                <div id="inner_body">
+                    <Switch>
+                        <Route path='/search/form' component={SearchForm} />
+                        <Route path='/search' component={SearchResults} />
+                        <Route path='/submit_initial' component={SubmitInitial} />
+                        <Route path='/submissions/:id' 
+                            render={(props) => 
+                                <Submission 
+                                    {...props} 
+                                    loggedIn={this.state.loggedIn} />
+                                }/>
+                        <Route path='/login' 
+                            render={(props) => 
+                                <Login 
+                                    {...props} 
+                                    handleLogin={this.handleLogin} />
+                                }/> />
+                        <Route path='/signup' 
+                            render={(props) => 
+                                <SignUp 
+                                    {...props} 
+                                    handleLogin={this.handleLogin} />
+                                }/> />
+                        <Route path='/logout' 
+                            render={(props) => 
+                                <Logout 
+                                    {...props} 
+                                    handleLogin={this.handleLogin} />
+                                }/> /> />
+                        <Route path='/' component={Splash} />
+                        <Route component={NotFound} />
+                    </Switch>
+                </div>
             </div>
-        </div>
-      </BrowserRouter>
-    );
-  }
+        </BrowserRouter>
+        );
+    }
 
-  handleLogin(status) {
-      this.setState({ loggedIn: status })
-  }
+    generateNewUserNav() {
+        return;
+    }
 
+    generateExistingUserNav() {
+        return;
+    }
+
+    handleLogin(status) {
+        this.setState({ loggedIn: status })
+    }
+}
+
+function NotFound() {
+    return (
+        <div className="not_found">
+            <center>
+                <h2>Sorry about that...</h2>
+                <img src={notFoundImg}/>
+                <h2>The page could not be found.</h2>
+            </center>
+        </div>);
 }
 
 
+class Logout extends React.Component {
 
-function NotFound() {
-  return <h2>Page Not Found.</h2>;
+    render() {
+        const cookies = new Cookies;
+        cookies.remove("username");
+        cookies.remove("auth");
+        this.props.handleLogin(false);
+        return (
+            <Redirect push to='/' />);
+    }
+}
+
+class Splash extends React.Component {
+
+    render() {
+        return (
+            <div>
+                <center>
+                    <h2>Welcome to Coursebin!</h2>
+                    <p>Here you can search for content relating to the courses
+                        you are taking. You can also submit content of your own
+                        for others to download.
+                    </p>
+                    <button className="splash_button">
+                        <Link to='/search/form'>Get Started!</Link>
+                    </button>
+                </center>
+            </div>
+        );
+
+    }
 }
 
 export default App;
