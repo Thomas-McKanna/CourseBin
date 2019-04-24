@@ -77,12 +77,7 @@ class FormField extends React.Component {
         }
         
         if (this.props.select) {
-            const options = this.props.options.map((school) =>
-                <option key={school.school_code}
-                    value={school.school_code} 
-                >{school.school_name}</option>
-            );
-
+            const options = this.props.getOptions()
             input = (
                 <select onChange={this.props.handleFunc}>
                     {options}

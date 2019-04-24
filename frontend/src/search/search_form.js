@@ -29,6 +29,13 @@ class SearchForm extends React.Component {
         // constants
         this.courseNameTip = "Try formatting the course name like this: CS2300"
         this.buttonGroup = ['Date', 'Rating']
+        this.semesterOptions = ['Spring', 'Fall', 'Summer']
+        this.yearOptions = []
+
+        var i;
+        for (i = 2019; i >= 2000; i--) {
+            this.yearOptions.push(String(i))
+        }
         
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleCourseNameChange = this.handleCourseNameChange.bind(this);
@@ -39,6 +46,9 @@ class SearchForm extends React.Component {
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handleButtonChange = this.handleButtonChange.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.getSchoolOptions = this.getSchoolOptions.bind(this);
+        this.getSemesterOptions = this.getSemesterOptions.bind(this);
+        this.getYearOptions = this.getYearOptions.bind(this);
     }
 
     componentDidMount() {
@@ -147,11 +157,6 @@ class SearchForm extends React.Component {
                             search: this.state["queryString"],
                         }} />
                 }
-                {this.state['warning'] !== '' &&
-                    <Warning 
-                        msg={this.state['warning']}
-                    />
-                }
                 <h2>Search For Content</h2>
                 <form onSubmit={this.handleSubmit}>
                     <FormField 
@@ -163,20 +168,22 @@ class SearchForm extends React.Component {
                         handleFunc={this.handleCourseNameChange}/>
                     <FormField
                         select
-                        options={this.state.schoolOptions}
+                        getOptions={this.getSchoolOptions}
                         label="School Name"
                         placeholder="CS2300"
                         css_class="input"
                         handleFunc={this.handleSchoolNameChange}/>
                     <FormField
-                        input
+                        select
+                        getOptions={this.getYearOptions}
                         aside="optional"
                         label="Year"
                         placeholder="2019"
                         css_class="input"
                         handleFunc={this.handleYearChange}/>
                     <FormField
-                        input
+                        select
+                        getOptions={this.getSemesterOptions}
                         aside="optional"
                         label="Semester"
                         placeholder="spring"
@@ -203,11 +210,41 @@ class SearchForm extends React.Component {
                         label="Order Results By"
                         css_class="radio"
                         handleFunc={this.handleButtonChange}/>
+                    {this.state['warning'] !== '' &&
+                        <Warning 
+                            msg={this.state['warning']}
+                        />
+                    }
                     <SubmitButton
                         label="Search"
                         handleFunc={this.handleSubmit}/>
                 </form>
             </div>
+        );
+    }
+
+    getSchoolOptions() {
+        console.log(this.state.schoolOptions)
+        return this.state.schoolOptions.map((school) =>
+            <option key={school.school_code} value={school.school_code}>
+                {school.school_name}
+            </option>
+        );
+    }
+
+    getSemesterOptions() {
+        return this.semesterOptions.map((semester) =>
+            <option key={semester} value={semester}>
+                {semester}
+            </option>
+        );
+    }
+
+    getYearOptions() {
+        return this.yearOptions.map((year) =>
+            <option key={year} value={year}>
+                {year}
+            </option>
         );
     }
 }

@@ -10,7 +10,7 @@ import {
 import Header from "./header"
 import SearchForm from "./search/search_form"
 import SearchResults from "./search/search_results"
-import SubmitInitial from "./submit/submit_initial"
+import SubmitInitial from "./submit/add_course"
 import Submission from "./submission/submission"
 import Login from "./authentication/login"
 import SignUp from "./authentication/signup"

@@ -4,6 +4,7 @@ import axios from "axios"
 import './style.css'
 import FormField from '../util/form_field'
 import SubmitButton from '../util/submit_button'
+import Warning from '../util/warning'
 
 class SubmitInitial extends React.Component {
     constructor(props) {
@@ -17,6 +18,14 @@ class SubmitInitial extends React.Component {
             coursename: '',
             instructor: '',
         };
+
+        this.semesterOptions = ['Spring', 'Fall', 'Summer']
+        this.yearOptions = []
+
+        var i;
+        for (i = 2019; i >= 2000; i--) {
+            this.yearOptions.push(String(i))
+        }
     
         this.handleCourseNameChange = this.handleCourseNameChange.bind(this);
         this.handleCourseNumberChange = this.handleCourseNumberChange.bind(this);
@@ -24,9 +33,11 @@ class SubmitInitial extends React.Component {
         this.handleInstructorNameChange = this.handleInstructorNameChange.bind(this);
         this.handleYearNameChange = this.handleYearNameChange.bind(this);
         this.handleSemesterNameChange = this.handleSemesterNameChange.bind(this);
-        
         this.handleSubmit = this.handleSubmit.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.getSchoolOptions = this.getSchoolOptions.bind(this);
+        this.getSemesterOptions = this.getSemesterOptions.bind(this);
+        this.getYearOptions = this.getYearOptions.bind(this);
     }
 
     componentDidMount() {
@@ -77,11 +88,10 @@ class SubmitInitial extends React.Component {
         var self = this; // bind "this" so that callbacks can use it
 
         event.preventDefault();
-        if (this.state['coursenumber'] === '' || this.state['school'] === '' || 
-            this.state['instructor'] === '' || this.state['year'] === '' || 
-            this.state['semester'] === '') {
+        if (this.state['coursenumber'] === '' || this.state['school'] === ''
+            || this.state['year'] === '' || this.state['semester'] === '') {
             this.setState({warning: 'Must fill all entries.'});
-            console.log("Not fully filled out.")
+            console.log('Some required fields not filled in.')
             return;
         } else {
             this.setState({warning: ''});
@@ -97,9 +107,8 @@ class SubmitInitial extends React.Component {
 
                 // before submitting to db ensure coursename exists
                 if (self.state['coursename'] === '') {
-                    self.setState({warning: 'Must fill course name for non existant course.'});
-                    console.log("Must fill course name for non existant course.")
-                    return;  // how to completely break out
+                    self.setState({warning: 'Some required fields not filled in.'});
+                    return; 
                 }
 
                 const cookies = new Cookies();
@@ -172,7 +181,7 @@ class SubmitInitial extends React.Component {
                 <form onSubmit={this.handleSubmit}>
                     <FormField
                         select
-                        options={this.state.schoolOptions}
+                        getOptions={this.getSchoolOptions}
                         label="School Name"
                         placeholder="CS2300"
                         css_class="input"
@@ -186,32 +195,66 @@ class SubmitInitial extends React.Component {
                     <FormField 
                         input
                         label="Course Name"
-                        placeholder="input if course doesnt exist"
+                        placeholder=""
                         css_class="input"
+                        aside="optional"
                         handleFunc={this.handleCourseNameChange}/>
-                    <FormField
-                        input
-                        label="Instructor Name"
-                        placeholder="Dr. "
-                        css_class="input"
-                        handleFunc={this.handleInstructorNameChange}/>
                     <FormField 
-                        input
+                        select
+                        getOptions={this.getYearOptions}
                         label="Year"
                         placeholder="2020"
                         css_class="input"
                         handleFunc={this.handleYearNameChange}/>
                     <FormField
-                        input
+                        select
+                        getOptions={this.getSemesterOptions}
                         label="Semester"
                         placeholder="Spring or Fall"
                         css_class="input"
                         handleFunc={this.handleSemesterNameChange}/>
+                    <FormField
+                        input
+                        label="Instructor Name"
+                        placeholder=""
+                        css_class="input"
+                        aside="optional"
+                        handleFunc={this.handleInstructorNameChange}/>
+                    {this.state['warning'] !== '' &&
+                        <Warning 
+                            msg={this.state['warning']}
+                        />
+                    }
                     <SubmitButton
                         label="Submit"
                         handleFunc={this.handleSubmit}/>                    
                 </form>
             </div>
+        );
+    }
+
+    getSchoolOptions() {
+        console.log(this.state.schoolOptions)
+        return this.state.schoolOptions.map((school) =>
+            <option key={school.school_code} value={school.school_code}>
+                {school.school_name}
+            </option>
+        );
+    }
+
+    getSemesterOptions() {
+        return this.semesterOptions.map((semester) =>
+            <option key={semester} value={semester}>
+                {semester}
+            </option>
+        );
+    }
+
+    getYearOptions() {
+        return this.yearOptions.map((year) =>
+            <option key={year} value={year}>
+                {year}
+            </option>
         );
     }
 }
