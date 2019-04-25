@@ -12,6 +12,7 @@ import SearchForm from "./search/search_form"
 import SearchResults from "./search/search_results"
 import SubmitInitial from "./submit/add_course"
 import Submission from "./submission/submission"
+import Submit from "./submit/submit"
 import Login from "./authentication/login"
 import SignUp from "./authentication/signup"
 import notFoundImg from "./images/404_not_found.jpg"
@@ -51,6 +52,8 @@ class App extends React.Component {
                         <Route path='/search/form' component={SearchForm} />
                         <Route path='/search' component={SearchResults} />
                         <Route path='/submit_initial' component={SubmitInitial} />
+                        <Route path='/submit' component={Submit} />
+                        
                         <Route path='/submissions/:id' 
                             render={(props) => 
                                 <Submission 
