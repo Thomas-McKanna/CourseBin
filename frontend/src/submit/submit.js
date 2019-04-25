@@ -44,20 +44,20 @@ class Submit extends React.Component {
     }
 
     render() {
+
         console.log(this.state.test)
         return (
             <div>
-                <h2>Login Page</h2>
                 <form onSubmit={this.handleSubmit}>
                     <FormField 
                         input
-                        label="Username"
-                        placeholder=""
+                        label='Description'
+                        placeholder="how u like"
                         css_class="input"
                         handleFunc={this.handleUsernameChange}/>
                     <FormField
                         input
-                        label="Password"
+                        label="(TODO)Files to upload"
                         placeholder=""
                         css_class="input"
                         handleFunc={this.handlePasswordChange}/>
@@ -66,6 +66,7 @@ class Submit extends React.Component {
                         handleFunc={this.handleSubmit}/>
                 </form>
             </div>
+            
         );
     }
 }
