@@ -211,8 +211,8 @@ def generate_content(submission_ids):
 
         url_to_submissions = {}
         for id in submission_ids:
-                filename = files[randint(0, len(files)-1)]
-                url = f'/data/{filename}'
+                filename = files[randint(0, len(files)-1)].split('.')[0]
+                url = f'{filename}'
 
                 output = f"INSERT INTO content (submission_id, url, filename) VALUES ('{id}', '{url}', '{filename}');"
 
@@ -241,7 +241,7 @@ def generate_ratings(usernames, url_to_submissions):
                         output = f"INSERT INTO ratings (submission_id, url, username, rating) VALUES ('{submission_id}', '{url}', '{username}', '{rating}');"
 
                         action(output)
-                
+        
 if __name__ == '__main__':
         pd.set_option('display.max_columns', None)
 
