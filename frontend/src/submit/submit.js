@@ -45,8 +45,6 @@ class Submit extends React.Component {
     }
 
     render() {
-
-        console.log(this.state.test)
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
