@@ -95,8 +95,7 @@ class SubmitInitial extends React.Component {
         var self = this; // bind "this" so that callbacks can use it
 
         event.preventDefault();
-        if (this.state['coursenumber'] === '' || this.state['school'] === ''
-            || this.state['year'] === '' || this.state['semester'] === '') {
+        if (this.state['coursenumber'] === '' || this.state['school'] === '') {
             this.setState({warning: 'Must fill all entries.'});
             console.log('Some required fields not filled in.')
             return;
