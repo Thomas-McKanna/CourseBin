@@ -5,6 +5,13 @@ import './style.css'
 import FormField from '../util/form_field'
 import SubmitButton from '../util/submit_button'
 import Warning from '../util/warning'
+import { 
+    BrowserRouter, 
+    Route, 
+    Switch,
+    Link,
+    Redirect,
+  } from "react-router-dom";
 
 class SubmitInitial extends React.Component {
     constructor(props) {
@@ -147,8 +154,9 @@ class SubmitInitial extends React.Component {
         this.setState({searchWasMade: true});
         
         // send passing data to next page
-        this.props.history.push('/submit')
-
+        // this.props.history.push('/submit')
+        this.props.history.push('/submit', { id: 7, color: 'green' })
+        
         return;
     }
 

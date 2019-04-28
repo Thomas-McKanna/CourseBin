@@ -41,6 +41,7 @@ class Submit extends React.Component {
             console.log(error);
         })
         event.preventDefault();
+        console.log(this.props.location.state)
     }
 
     render() {
