@@ -10,24 +10,24 @@ class Submit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '', 
-            password: '',
+            description: '', 
+            file: '',
         };
-    
-        this.handleUsernameChange = this.handleUsernameChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+     
+        this.handledescriptionChange = this.handledescriptionChange.bind(this);
+        this.handleFileChange = this.handleFileChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleUsernameChange(event) {
-        this.setState({username: event.target.value});
+    handledescriptionChange(event) {
+        this.setState({description: event.target.value});
     }
 
-    handlePasswordChange(event) {
-        this.setState({password: event.target.value});
+    handleFileChange(event) {
+        this.setState({file: event.target.value});
     }
     
-    handleSubmit(event) {        
+    handleSubmit(event) {
         axios.post('/api/v1/users/login/', {
             username: this.state.username,
             password: this.state.password
@@ -41,25 +41,36 @@ class Submit extends React.Component {
             console.log(error);
         })
         event.preventDefault();
-        console.log(this.props.location.state)
+        console.log(this.props.location.state);
     }
 
     render() {
         return (
             <div>
+                <center>
+                    <h2>Submitting to </h2>
+                    <p> 
+                        Name {this.props.location.state['course_name']}, 
+                        Number {this.props.location.state['course_number']}, 
+                        School {this.props.location.state['course_school']}, 
+                        Semester {this.props.location.state['course_semester']}, 
+                        Year {this.props.location.state['course_year']}, 
+                        Instructor {this.props.location.state['course_instructor']}
+                    </p>
+                </center>
                 <form onSubmit={this.handleSubmit}>
                     <FormField 
                         input
                         label='Description'
                         placeholder="how u like"
                         css_class="input"
-                        handleFunc={this.handleUsernameChange}/>
+                        handleFunc={this.handledescriptionChange}/>
                     <FormField
                         input
                         label="(TODO)Files to upload"
                         placeholder=""
                         css_class="input"
-                        handleFunc={this.handlePasswordChange}/>
+                        handleFunc={this.handleFileChange}/>
                     <SubmitButton
                         label="Submit"
                         handleFunc={this.handleSubmit}/>
