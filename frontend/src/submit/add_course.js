@@ -20,8 +20,8 @@ class SubmitInitial extends React.Component {
             schoolOptions: [],
             coursenumber: '',
             school: '',
-            year: '',
-            semester: '',
+            year: '2019',
+            semester: 'Spring',
             coursename: '',
             instructor: '',
         };
@@ -144,17 +144,22 @@ class SubmitInitial extends React.Component {
         if(this.state['coursename'] === '') {
             self.setState({warning: 'Must fill course name for non existant course.'});
             console.log("Must fill course name for non existant course.")
-            return;  // how to completely break out
+            return;
         }
         
         const queryString = this.getQueryString(this.state);
 
         this.setState({queryString: queryString});
         this.setState({searchWasMade: true});
-        
-        // send passing data to next page
-        // this.props.history.push('/submit')
-        this.props.history.push('/submit', { id: 7, color: 'green' })
+
+        this.props.history.push('/submit', {
+             course_school: this.state['school'],
+             course_number: this.state['coursenumber'],
+             course_name: this.state['coursename'],
+             course_year: this.state['year'],
+             course_semester: this.state['semester'],
+             course_instructor: this.state['instructor']
+            });
         
         return;
     }
