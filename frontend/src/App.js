@@ -130,7 +130,7 @@ class Splash extends React.Component {
         return (
             <div>
                 <center>
-                    <h2>Welcome to Coursebin!</h2>
+                    <h2>Welcome to Backpack!</h2>
                     <p>Here you can search for content relating to the courses
                         you are taking. You can also submit content of your own
                         for others to download.

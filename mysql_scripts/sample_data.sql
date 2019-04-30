@@ -31,7 +31,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `content` WRITE;
 /*!40000 ALTER TABLE `content` DISABLE KEYS */;
-INSERT INTO `content` VALUES (1,'abc', 'file1.jpg'),(1,'def','file2.docx');
+INSERT INTO `content` VALUES (1,'4a770738ad8d2809ae81281be770495d', 'file1.jpg'),(1,'74eadbb870cac23d18ef018b1bd483b8','file2.jpg');
 /*!40000 ALTER TABLE `content` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -70,7 +70,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `submissions` WRITE;
 /*!40000 ALTER TABLE `submissions` DISABLE KEYS */;
-INSERT INTO `submissions` VALUES (1,'2019-03-27 17:20:33','all the work','test',1);
+INSERT INTO `submissions` VALUES (1,'2019-03-27 17:20:33','Lorem ipsum dolor sit amet, mei munere labores id, probo simul pertinax ea eum. Duo te fuisset fierent eleifend, vim autem harum discere ut. Eum eu soleat nostrum, debitis probatus at quo, id minim erant nam. Eros deseruisse cu nam. Mei omnes oporteat ut.','test',1);
 /*!40000 ALTER TABLE `submissions` ENABLE KEYS */;
 UNLOCK TABLES;
 

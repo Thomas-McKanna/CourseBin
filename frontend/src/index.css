@@ -23,16 +23,16 @@ html {
 }
 
 #inner_header {
-  width: 50%;
+  width: 93%;
   margin: 0 auto;
 }
 
 #outer_header {
-  background-color: #00b900;
+  background-color: #79b5fa;
 }
 
 #header_separator {
-  height: 0.5em;
+  height: 0.4em;
   background-color: #000000;
 }
 
@@ -46,6 +46,8 @@ html {
 #outer_body {
   height: 100%;
   background-image: url("./images/pipes.png");
+  background-size: 10%;
+  background-repeat: repeat;
 }
 
 #menu {
@@ -53,7 +55,7 @@ html {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #00b900;
+  background-color: #79b5fa;
 }
 
 .left {
@@ -68,32 +70,38 @@ html {
 .nav_label {
     border-style: solid;
     border-width: 1px;
+    font-size: 20px;
     padding: 5px;
-    margin-top:18px;
+    margin-top:27px;
 }
 
 #menu li a {
   display: block;
+  block-size: fit-content;
   color: white;
   text-align: center;
-  padding: 1.5em;
+  margin-top: 7%;
+  padding: 1em;
+  font-size: 22px;
   text-decoration: none;
 }
 
 #logo {
   float: left;
+  margin-right: 40px;
+  overflow: hidden;
   display: block;
   color: white;
   text-align: center;
-  font-family: "Arial Black", Gadget, sans-serif;
-  padding: 0.3em;
-  font-size: 2em;
+  font-family: "Impact", Gadget, fantasy;
+  padding: 0.1em;
+  font-size: 4em;
 
   text-decoration: none;
 }
 
 #menu li a:hover {
-  background-color: #41e600;
+  background-color: #80d7ff;
 }
 
 #navigation {
