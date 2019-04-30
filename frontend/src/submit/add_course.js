@@ -5,7 +5,7 @@ import './style.css'
 import FormField from '../util/form_field'
 import SubmitButton from '../util/submit_button'
 import Warning from '../util/warning'
-import Redirect from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 class SubmitInitial extends React.Component {
     constructor(props) {
@@ -57,6 +57,7 @@ class SubmitInitial extends React.Component {
 
     handleSchoolNameChange(event) {
         this.setState({school: event.target.value});
+        this.setState({schooleName: event.target});
         return;
     }
 
@@ -90,8 +91,7 @@ class SubmitInitial extends React.Component {
 
         event.preventDefault();
         if (this.state['coursenumber'] === '' || this.state['school'] === '') {
-            this.setState({warning: 'Must fill all entries.'});
-            console.log('Some required fields not filled in.')
+            this.setState({warning: 'Some required fields not filled in.'});
             return;
         } else {
             this.setState({warning: ''});
@@ -102,18 +102,18 @@ class SubmitInitial extends React.Component {
                     + this.state['school'] + "/year/" 
                     + this.state['year'] + "/semester/" 
                     + this.state['semester'])
+        .then(function(response) {
+            if (response.status === 200) {
+                console.log(response.data.result[0].id)
+                self.setState({courseId: response.data.result[0].id})
+                self.setState({searchWasMade: true});
+            }
+        })
         .catch(function (error) {
             if (error.response.status === 404) {
 
-                // before submitting to db ensure coursename exists
-                if (self.state['coursename'] === '') {
-                    self.setState({warning: 'Some required fields not filled in.'});
-                    return; 
-                }
-
                 const cookies = new Cookies();
 
-                console.log(cookies.get('auth'));
                 axios.post("/api/v1/courses/", {
                     number: self.state['coursenumber'], 
                     name: self.state['coursename'], 
@@ -127,62 +127,34 @@ class SubmitInitial extends React.Component {
                 }})
                 .then(function(response) {
                     if (response.status === 200){
-                        console.log("Nice");
+                        // get the id of the inserted course
+                        self.setState({courseId: response.data.result.insertId})
+                        self.setState({searchWasMade: true});
                     }
-                });
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
             }
-
-            console.log(error);
         });
-
-        if(this.state['coursename'] === '') {
-            self.setState({warning: 'Must fill course name for non existant course.'});
-            console.log("Must fill course name for non existant course.")
-            return;
-        }
-        
-        const queryString = this.getQueryString(this.state);
-
-        this.setState({queryString: queryString});
-        this.setState({searchWasMade: true});
-
-        this.props.history.push('/submit', {
-             course_school: this.state['school'],
-             course_number: this.state['coursenumber'],
-             course_name: this.state['coursename'],
-             course_year: this.state['year'],
-             course_semester: this.state['semester'],
-             course_instructor: this.state['instructor']
-            });
-        
-        return;
-    }
-
-    getQueryString(st) {
-        var params = []
-        params.push('course=' + st['course'])
-        params.push('school=' + st['school'])
-        params.push('instructor=' + st['instructor'])
-        params.push('year=' + st['year'])
-        params.push('semester=' + st['semester'])
-        
-        var qString = "";
-        var i;
-        const len = params.length;
-        for (i = 0; i < len; i++) {
-            if (params[i] !== "") {
-                qString += params[i];
-                if (i !== len - 1) {
-                    qString += "&"
-                }
-            }
-        }
-        return '?' + qString
     }
 
     render() {
         return (
             <div className="course_lookup" >
+                {this.state.searchWasMade && 
+                    <Redirect push 
+                        to={{
+                            pathname: "/submit/" + this.state.courseId,
+                        }} />
+                }
+                {!this.props.loggedIn &&
+                    <Redirect push 
+                        to={{
+                            pathname: "/login",
+                            state: { warning: 'You need to be logged in to submit.'}
+                        }} />
+                }
                 <h2>Course Lookup</h2>
                 <form onSubmit={this.handleSubmit}>
                     <FormField

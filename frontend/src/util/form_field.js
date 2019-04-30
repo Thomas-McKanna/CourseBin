@@ -85,6 +85,10 @@ class FormField extends React.Component {
             );
         }
 
+        if (this.props.textArea) {
+            input = <textarea rows='6' placeholder={thePlaceholder} onChange={this.props.handleFunc}/>
+        }
+
         return (
             <div className={this.props.css_class}>
                 <FormFieldHeader aside={this.props.aside} label={this.props.label}/>

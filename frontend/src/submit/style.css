@@ -3,6 +3,28 @@
     margin: 0 auto;
 }
 
-.course_lookup h3 {
+.submit_form {
+    width: 90%;
+    margin: 0 auto;
+}
+
+h3 {
     display: inline;
+}
+
+.submit_form textarea {
+    width: 100%;
+    resize: none;
+}
+
+.submit_info {
+    background-color: rgb(218, 233, 255);
+    border-style: solid;
+    padding-left: 16px;
+    border-width: 1px;
+    margin-bottom: 10px;
+}
+
+.remaining_chars {
+    float: right;
 }

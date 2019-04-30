@@ -4,14 +4,23 @@ import axios from "axios"
 import './style.css'
 import FormField from '../util/form_field'
 import SubmitButton from '../util/submit_button'
+import Warning from '../util/warning'
 
 class Login extends React.Component {
+
+    state = {
+        username: '', 
+        password: '',
+    }
+
     constructor(props) {
         super(props);
-        this.state = {
-            username: '', 
-            password: '',
-        };
+
+        if (props.location.state != undefined) {
+            this.state = { hasWarning: true }
+        } else {
+            this.state = { hasWarning: false }
+        }
     
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -50,6 +59,11 @@ class Login extends React.Component {
     render() {
         return (
             <div className="login_form">
+                {this.state.hasWarning &&
+                    <Warning 
+                        msg={this.props.location.state.warning}
+                    />
+                }
                 <h2>Log In</h2>
                 <form onSubmit={this.handleSubmit}>
                     <FormField 

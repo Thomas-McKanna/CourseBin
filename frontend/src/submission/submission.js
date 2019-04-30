@@ -2,6 +2,7 @@ import './style.css'
 import React from "react";
 import axios from "axios"
 import { Redirect } from "react-router-dom";
+import LoadingGIF from '../images/loading.gif'
 
 import Content from "./content"
 
@@ -54,7 +55,9 @@ class Submission extends React.Component {
     contentNotYetReady() {
         return (
             <div>
-                <p>Loading...</p>
+                <center>
+                    <img src={LoadingGIF} />
+                </center>
             </div>
         );
     }

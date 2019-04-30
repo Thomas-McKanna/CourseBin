@@ -23,7 +23,7 @@ html {
 }
 
 #inner_header {
-  width: 93%;
+  width: 75%;
   margin: 0 auto;
 }
 
@@ -37,7 +37,7 @@ html {
 }
 
 #inner_body {
-  width: 50%;
+  width: 75%;
   margin: 0 auto;
   background-color: #ffffff;
   border-style: solid;

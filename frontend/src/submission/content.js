@@ -27,6 +27,7 @@ class Content extends React.Component {
                         <Redirect push 
                             to={{
                                 pathname: "/login",
+                                state: { warning: 'You need to be logged in rate content.'}
                             }} />
                     }
                     <Rating 

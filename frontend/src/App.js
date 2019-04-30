@@ -37,7 +37,7 @@ class App extends React.Component {
     render() {
         const headerLinks = [
             {label: 'Search', link: '/search/form', float: 'left'},
-            {label: 'Submit', link: '/submit_initial/', float: 'left'},
+            {label: 'Submit', link: '/add_course', float: 'left'},
         ]
 
         return (
@@ -51,9 +51,18 @@ class App extends React.Component {
                     <Switch>
                         <Route path='/search/form' component={SearchForm} />
                         <Route path='/search' component={SearchResults} />
-                        <Route path='/submit_initial' component={SubmitInitial} />
-                        <Route path='/submit' component={Submit} />
-                        
+                        <Route path='/submit/:id'
+                            render={(props) => 
+                                <Submit 
+                                    {...props} 
+                                    loggedIn={this.state.loggedIn} />
+                                }/>
+                        <Route path='/add_course'
+                            render={(props) => 
+                                <SubmitInitial 
+                                    {...props} 
+                                    loggedIn={this.state.loggedIn} />
+                                }/>
                         <Route path='/submissions/:id' 
                             render={(props) => 
                                 <Submission 
