@@ -4,6 +4,7 @@ import axios from "axios"
 import './style.css'
 import FormField from '../util/form_field'
 import SubmitButton from '../util/submit_button'
+import FileUploadManager from './file_upload'
 import { Redirect } from "react-router-dom";
 import LoadingGIF from '../images/loading.gif'
 
@@ -18,8 +19,8 @@ class Submit extends React.Component {
     constructor(props) {
         super(props);
      
+        this.fileInput = React.createRef();
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-        this.handleFileChange = this.handleFileChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -41,13 +42,10 @@ class Submit extends React.Component {
         this.setState({charCount: event.target.value.length});
         this.setState({description: event.target.value});
     }
-
-    handleFileChange(event) {
-        this.setState({file: event.target.value});
-    }
     
     handleSubmit(event) {
-
+        // Make the submissioni (just description) and get returned id
+        // Use returned id to using the upload API call
         event.preventDefault();
     }
 
@@ -106,6 +104,8 @@ class Submit extends React.Component {
                         handleFunc={this.handleDescriptionChange}/>
                     <span className='remaining_chars'>{String(this.state.charCount)}/500</span>
                     <h2>Choose Files to Upload</h2>
+                    <FileUploadManager
+                        fileInput={this.fileInput}/>
                     <SubmitButton
                         label="Submit"
                         handleFunc={this.handleSubmit}/>

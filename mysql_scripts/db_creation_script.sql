@@ -110,7 +110,7 @@ DROP TABLE IF EXISTS `development`.`submissions` ;
 CREATE TABLE IF NOT EXISTS `development`.`submissions` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `description` VARCHAR(200) NULL DEFAULT NULL,
+  `description` VARCHAR(500) NULL DEFAULT NULL,
   `username` VARCHAR(30) NOT NULL,
   `course_id` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
