@@ -1,12 +1,13 @@
-import Cookies from 'universal-cookie';
 import React from "react";
-import axios from "axios"
-import './style.css'
-import FormField from '../util/form_field'
-import SubmitButton from '../util/submit_button'
-import FileUploadManager from './file_upload'
+import axios from "axios";
+import './style.css';
+import FormField from '../util/form_field';
+import SubmitButton from '../util/submit_button';
 import { Redirect } from "react-router-dom";
-import LoadingGIF from '../images/loading.gif'
+import LoadingGIF from '../images/loading.gif';
+import Tip from '../util/tip';
+import Warning from '../util/warning'
+import Cookies from 'universal-cookie';
 
 class Submit extends React.Component {
 
@@ -14,6 +15,7 @@ class Submit extends React.Component {
         contentLoaded: false,
         description: '',
         charCount: 0,
+        hasWarning: false,
     }
 
     constructor(props) {
@@ -39,17 +41,83 @@ class Submit extends React.Component {
     }
 
     handleDescriptionChange(event) {
-        this.setState({charCount: event.target.value.length});
-        this.setState({description: event.target.value});
+        var description = event.target.value;
+        console.log(event)
+        // NOT WORKING
+        if (description.length > 500) {
+            event.preventDefault();
+        }
+        this.setState({charCount: description.length});
+        this.setState({description: description});
     }
     
     handleSubmit(event) {
         // Make the submissioni (just description) and get returned id
         // Use returned id to using the upload API call
         event.preventDefault();
+        if (this.fileInput.current.files.length === 0) {
+            this.setState({
+                hasWarning: true,
+                warning: 'Must select at least one file to submit.',
+            })
+            return
+        }
+
+        var self = this; // bind "this" so that callbacks can use it
+        const cookies = new Cookies();
+        var submissionId;
+        axios.post('/api/v1/submissions/course/' + this.props.match.params['id'], 
+            { description: this.state.description },
+            { headers: { "Authorization": `bearer ${cookies.get('auth')}` }
+        })
+        .then(function(response) {
+            if (response.status === 200) {
+                submissionId = response.data.result['insertId'];
+
+                var fileReader = new FileReader();
+                fileReader.onloadend = self.handleFile
+
+                const files = self.fileInput.current.files;
+                console.log(files, files[0])
+                
+                for (var i = 0; i < files.length; i++) {
+                    fileReader.readAsText(files[i])
+                }
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+        
     }
 
+    handleFile(event) {
+        console.log(event);
+        
+        /*
+        var bodyFiles = new FormData();
+                bodyFiles.append('file', self.fileInput.current.files)
+
+                axios({
+                    method: 'post',
+                    url: '/api/v1/upload/submission/' + submissionId,
+                    data: bodyFiles,
+                    headers: { "Authorization": `bearer ${cookies.get('auth')}` },
+                    config: { headers: {'Content-Type': 'multipart/form-data' }}
+                    })
+                    .then(function (response) {
+                        //handle success
+                        console.log(response);
+                    })
+                    .catch(function (response) {
+                        //handle error
+                        console.log(self.fileInput);
+                    });
+            */
+                   
+    }
     render() {
+        
         var body;
         if (this.state['contentLoaded']) {
             body = this.buildBody()
@@ -94,7 +162,7 @@ class Submit extends React.Component {
                     <h4>Happened: {this.state.courseInfo['semester']} {this.state.courseInfo['year']}</h4>
                     <h4>Professor: {professor}</h4>
                 </div>
-                <form onSubmit={this.handleSubmit}>
+                <form className="upload_form" onSubmit={this.handleSubmit}>
                     <FormField 
                         textArea
                         aside="optional"
@@ -104,10 +172,18 @@ class Submit extends React.Component {
                         handleFunc={this.handleDescriptionChange}/>
                     <span className='remaining_chars'>{String(this.state.charCount)}/500</span>
                     <h2>Choose Files to Upload</h2>
-                    <FileUploadManager
-                        fileInput={this.fileInput}/>
+                    <Tip tip='Multiple files can be selected. Consider putting everything in one zip file.' />
+                    <input 
+                        type="file"
+                        multiple
+                        ref={this.fileInput} />
+                    {this.state.hasWarning &&
+                        <Warning 
+                            msg={this.state.warning}
+                        />
+                    }
                     <SubmitButton
-                        label="Submit"
+                        label="Create Submission"
                         handleFunc={this.handleSubmit}/>
                 </form>
             </div>

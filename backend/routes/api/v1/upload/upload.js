@@ -10,7 +10,7 @@ module.exports = {
             + " VALUES (?, ?, ?);";
         var sql_intermediate = "";
         var sql = "";
-
+        
         for (entry in req.files) {
             inserts = [req.params.submissionId, req.files[entry].filename, 
                 req.files[entry].originalname];

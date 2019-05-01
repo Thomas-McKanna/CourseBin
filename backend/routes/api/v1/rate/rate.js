@@ -48,7 +48,6 @@ module.exports = {
                 result.status = status;
                 result.result = parseInt(Math.round(sum / results.length));
             } else {
-                console.log("here")
                 status = 404;
                 result.status = status;
                 result.error = error; 

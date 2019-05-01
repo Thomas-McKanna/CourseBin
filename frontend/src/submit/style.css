@@ -33,3 +33,7 @@ h3 {
     list-style: none;
     padding: 10px 10px;
 }
+
+.upload_form input {
+    margin-top: 10px;
+}
