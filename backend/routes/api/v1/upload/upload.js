@@ -10,12 +10,14 @@ module.exports = {
             + " VALUES (?, ?, ?);";
         var sql_intermediate = "";
         var sql = "";
-        
+        console.log(req.files)
         for (entry in req.files) {
+            console.log("hi")
             inserts = [req.params.submissionId, req.files[entry].filename, 
                 req.files[entry].originalname];
             sql_intermediate = mysql.format(sql_template, inserts);
             sql += sql_intermediate;
+            console.log(sql)
         }
 
         connection.query(sql, function (error, results, fields) {

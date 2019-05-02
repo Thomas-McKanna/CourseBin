@@ -24,6 +24,7 @@ class Submit extends React.Component {
         this.fileInput = React.createRef();
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleFile = this.handleFile.bind(this);
     }
 
     componentDidMount() {
@@ -65,23 +66,34 @@ class Submit extends React.Component {
 
         var self = this; // bind "this" so that callbacks can use it
         const cookies = new Cookies();
-        var submissionId;
         axios.post('/api/v1/submissions/course/' + this.props.match.params['id'], 
             { description: this.state.description },
             { headers: { "Authorization": `bearer ${cookies.get('auth')}` }
         })
         .then(function(response) {
             if (response.status === 200) {
-                submissionId = response.data.result['insertId'];
+                self.setState({submissionId: response.data.result['insertId']});
 
-                var fileReader = new FileReader();
-                fileReader.onloadend = self.handleFile
-
+                var bodyFiles  = new FormData();
                 const files = self.fileInput.current.files;
-                console.log(files, files[0])
-                
                 for (var i = 0; i < files.length; i++) {
-                    fileReader.readAsText(files[i])
+                    bodyFiles.append('file', files[i], files[i].name)
+                    const cookies = new Cookies();
+                    axios({
+                        method: 'post',
+                        url: '/api/v1/upload/submission/' + self.state.submissionId,
+                        data: bodyFiles,
+                        headers: { "Authorization": `bearer ${cookies.get('auth')}` },
+                        config: { headers: {'Content-Type': 'multipart/form-data' }}
+                        })
+                        .then(function (response) {
+                            //handle success
+                            console.log(response);
+                        })
+                        .catch(function (response) {
+                            //handle error
+                            console.log(self.fileInput);
+                        });             
                 }
             }
         })
@@ -91,31 +103,39 @@ class Submit extends React.Component {
         
     }
 
-    handleFile(event) {
-        console.log(event);
-        
-        /*
-        var bodyFiles = new FormData();
-                bodyFiles.append('file', self.fileInput.current.files)
+    handleFile(event, files) {
+        // match filename based on size of file
+        var filename;
+        for (var i = 0; i < files.length; i++) {
+            if (files[i].size === event.total) {
+                filename = files[i].name;
+            }
+        }
 
-                axios({
-                    method: 'post',
-                    url: '/api/v1/upload/submission/' + submissionId,
-                    data: bodyFiles,
-                    headers: { "Authorization": `bearer ${cookies.get('auth')}` },
-                    config: { headers: {'Content-Type': 'multipart/form-data' }}
-                    })
-                    .then(function (response) {
-                        //handle success
-                        console.log(response);
-                    })
-                    .catch(function (response) {
-                        //handle error
-                        console.log(self.fileInput);
-                    });
-            */
-                   
+        console.log(filename)
+        var bodyFiles = new FormData();
+        bodyFiles.append('file', event.target.result, filename)
+        console.log(bodyFiles.getAll('file'))
+
+        const cookies = new Cookies();
+        var self = this; // bind "this" so that callbacks can use it
+        axios({
+            method: 'post',
+            url: '/api/v1/upload/submission/' + self.state.submissionId,
+            data: bodyFiles,
+            headers: { "Authorization": `bearer ${cookies.get('auth')}` },
+            config: { headers: {'Content-Type': 'multipart/form-data' }}
+            })
+            .then(function (response) {
+                //handle success
+                console.log(response);
+            })
+            .catch(function (response) {
+                //handle error
+                console.log(self.fileInput);
+            });             
     }
+
     render() {
         
         var body;
