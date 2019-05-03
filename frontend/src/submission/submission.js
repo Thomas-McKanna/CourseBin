@@ -90,12 +90,14 @@ class Submission extends React.Component {
                             pathname: "/", // TODO: Go to submission page for this course
                         }} />
                 }
-                <div className="upload_info">
-                    Uploaded by {meta['username']} on {meta['date_created']}
-                </div>
-                <div className="add_submission">
-                    <span>Have you taken this course?</span>
-                    <button onClick={this.addSubmission}>Add Submission</button>
+                <div className="top_bar">
+                    <div className="top_bar_left">
+                        <span>Uploaded by {meta['username']} on {meta['date_created']}</span>
+                    </div>
+                    <div className="top_bar_right">
+                        <span>Have you taken this course?</span>
+                        <button onClick={this.addSubmission}>Add Submission</button>
+                    </div>
                 </div>
                 <div className="upper">
                     <div className="title">
