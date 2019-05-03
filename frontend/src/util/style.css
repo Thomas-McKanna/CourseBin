@@ -1,25 +1,27 @@
 .tip_box {
     background-color: #84eb76;
-    border-radius: 25px;
+    width: 40%;
+    border-radius: 4px;
     border-style: solid;
     border-width: 1px;
 }
 
 .tip_text b{
-    margin-left: 1em;
+    margin-left: 0.8em;
 }
 
 .warning_box {
     margin: 8px 0;
-    background-color: #ff6e6e;
+    width: 39%;
+    background-color: #ffffff;
     border-radius: 25px;
     border-style: solid;
-    border-width: 1px;
+    border-width: 0px;
 }
 
 .warning_text {
-    margin-left: 1em;
-    color: rgb(243, 243, 243);
+    margin-left: 0em;
+    color: #ff0000;
 }
 
 hr {
@@ -35,18 +37,19 @@ hr {
 }
 
 .aside {
-    background-color:  #d6d6d6;  
+    background-color:  #84eb76;  
     border-radius: 25px;
     border-style: solid;
     border-width: 1px;
-    padding-right: 5px;
+    padding-right: 55px;
     padding-left: 5px;
 }
 
 .input input, select {
     width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
+    font-size: 90%;
+    padding: 8px 10px;
+    margin: 10px 0;
     box-sizing: border-box;
 }
 
@@ -55,16 +58,17 @@ hr {
 }
 
 .submit_btn {
-    width: 50%;
-    padding: 12px 20px;
-    margin: 8px 0;
+    width: 15%;
+    padding: 6px 10px;
+    margin: 7px 0;
     background-color: #79b5fa;
     border-color: #000000;
-    font-weight: 900;
+    font-size: 110%;
+    font-weight: 545;
     border-style: solid;
-    border-width: 1px;
+    border-width: 2px;
 }
 
 .submit_btn:hover { 
-    background-color: #7bff98;
+    background-color: #61dafb;
 }

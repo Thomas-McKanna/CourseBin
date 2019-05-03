@@ -1,5 +1,5 @@
 .form {
-    width: 90%;
+    width: 95%;
     margin: 0 auto;
 }
   
@@ -7,7 +7,7 @@
     width: 50%;
     padding: 12px 20px;
     margin: 8px 0;
-    background-color:  #b1ffc2;
+    background-color:  #84eb76;
     border-color: #000000;
     font-weight: 900;
     border-style: solid;
@@ -44,24 +44,28 @@
 .submission_summary {
     display: inline-block;
     width: 84.5%;
-    height: 130px;
+    height: 100px;
     padding: 0;
 }
 
 .search_results h2 {
     margin-left: 20px;
+    margin-top: 10px;
     margin-bottom: 0px;
+    font-size: 140%;
 }
 
 .submission_summary div {
     margin: 0;
-    padding: 5px;
+    padding: 4px;
     height: 15.8%;
 }
 
 .name_row {
-    background-color: #d6ffc6;
+    background-color: #84eb76;
     padding: 5px;
+    width: 117.2%;
+    border: #84eb76;
 }
 
 .number {
@@ -70,7 +74,9 @@
 }
 
 .time_prof {
-    background-color: #6fd36b;
+    background-color: #84eb76;
+    width: 117.2%;
+    border: #84eb76;
 }
 
 .time {
@@ -78,16 +84,19 @@
 }
 
 .school {
-    background-color: #f16b6b;
+    background-color: #84eb76;
     font-style: italic;
+    width: 117.2%;
+    border: #84eb76;
+
 }
 
 .to_submission_btn {
-    background-color: rgb(145, 226, 179);
+    background-color: #84eb76;
     border-style: solid;
-    width: 15%;
-    height: 130px;
-    border-width: 1px;
+    width: 4%;
+    height: 21.5px;
+    border-width: 2px;
     padding: 0;
     text-align: center;
     float: right;
@@ -99,16 +108,18 @@
 }
 
 .to_submission_btn img {
-    height: 100px;
-    margin-top: 15px;
+    height: 13px;
+    width: 15px;
+    margin-bottom: 4px;
     float: center;
 }
 
 .add_submission {
     padding: 5px;
-    background-color: #ffcb86;
+    background-color: #ffffff;
     border-style: solid;
-    border-width: 1px;
+    border-width: 0px;
+    margin-left: 750px;
 }
 
 .add_submission button {
@@ -116,5 +127,7 @@
 }
 
 .rating_row {
-    background-color: rgb(255, 246, 227);
+    background-color: #84eb76;
+    width: 112%;
+    border: #84eb76;
 }

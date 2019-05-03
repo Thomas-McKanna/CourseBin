@@ -19,7 +19,7 @@ class Header extends React.Component {
             <div id="outer_header">
             <div id="inner_header">
                 <ul id='menu'>
-                <li id='logo'>Backpack</li>
+                <li id='logo'>CourseBin</li>
                 {this.items}
                 {this.props.loggedIn &&
                     this.makeHeaderLink('/logout', 'Log Out', 'right')}
