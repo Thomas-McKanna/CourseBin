@@ -47,11 +47,6 @@ button img {
     float: right;
 }
 
-.upload_info {
-    color: #000000;
-    font-style: italic;
-}
-
 .title {
     padding: 5px;
     font-size: 25px;
@@ -76,9 +71,46 @@ button img {
 }
 
 .description_box {
+
+    background-color: rgb(255, 255, 255);
+    border-style: dashed;
+    border-width: 1px;
+    padding: 5px;
+}
+
+.top_bar {
+    padding: 5px;
     background-color: #ffffff;
     border-style: solid;
-    border-width:0.5px;
-    padding: 6px;
-    font-size: 15px;
+    border-width: 0px;
+    height: 20px;
+}
+
+.add_submission span {
+    float: right;
+    margin-right: 10px;
+}
+
+.add_submission button {
+    float: right;
+}
+
+.rating_row {
+    background-color: #84eb76;
+    width: 112%;
+    border: #84eb76;
+}
+
+.top_bar_left {
+    float: left;
+    color: gray;
+    font-style: italic;  
+}
+
+.top_bar_right {
+    float: right;
+}
+
+.top_bar_right span {
+    margin-right: 10px;
 }

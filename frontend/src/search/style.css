@@ -113,21 +113,3 @@
     margin-bottom: 4px;
     float: center;
 }
-
-.add_submission {
-    padding: 5px;
-    background-color: #ffffff;
-    border-style: solid;
-    border-width: 0px;
-    margin-left: 750px;
-}
-
-.add_submission button {
-    float: right;
-}
-
-.rating_row {
-    background-color: #84eb76;
-    width: 112%;
-    border: #84eb76;
-}

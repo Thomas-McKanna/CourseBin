@@ -58,7 +58,7 @@ hr {
 }
 
 .submit_btn {
-    width: 15%;
+    width: auto;
     padding: 6px 10px;
     margin: 7px 0;
     background-color: #79b5fa;
