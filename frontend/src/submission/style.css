@@ -70,6 +70,7 @@ button img {
     padding: 10px;
     background-color: #ffffff;
     margin-bottom: 5px;
+    word-wrap: break-word;
 }
 
 .description_box {

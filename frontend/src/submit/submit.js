@@ -16,6 +16,7 @@ class Submit extends React.Component {
         description: '',
         charCount: 0,
         hasWarning: false,
+        submissionWasMade: false,
     }
 
     constructor(props) {
@@ -29,7 +30,7 @@ class Submit extends React.Component {
 
     componentDidMount() {
         var self = this; // bind "this" so that callbacks can use it
-        axios.get('/api/v1/courses/' + this.props.match.params['id'])
+        axios.get('/api/v1/submissions/' + this.props.match.params['id'])
         .then(function(response) {
             if (response.status === 200) {
                 self.setState({ courseInfo: response.data.result[0]})
@@ -88,17 +89,25 @@ class Submit extends React.Component {
                         })
                         .then(function (response) {
                             //handle success
+                            self.setState({submissionWasMade: true})
                             console.log(response);
                         })
                         .catch(function (response) {
                             //handle error
-                            console.log(self.fileInput);
+                            self.setState({
+                                hasWarning: true,
+                                warning: 'A server problem has preventing the content upload from happening.'
+                            })
                         });             
                 }
             }
         })
         .catch(function (error) {
             console.log(error);
+            self.setState({
+                hasWarning: true,
+                warning: 'Hmmmmm... either you have already submitted for this course or the server just exploded.'
+            })
         });
         
     }
@@ -172,6 +181,12 @@ class Submit extends React.Component {
                         to={{
                             pathname: "/login",
                             state: { warning: 'You need to be logged in to submit.'}
+                        }} />
+                }
+                {this.state.submissionWasMade && 
+                    <Redirect push 
+                        to={{
+                            pathname: "/submissions/" + this.state.submissionId,
                         }} />
                 }
                 <h2>Submission Page for {this.state.courseInfo['number']}</h2>
