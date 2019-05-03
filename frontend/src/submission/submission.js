@@ -87,7 +87,7 @@ class Submission extends React.Component {
                 {this.state['wantsToSubmit'] && 
                     <Redirect push 
                         to={{
-                            pathname: "/", // TODO: Go to submission page for this course
+                            pathname: "/submit/" + this.id, // TODO: Go to submission page for this course
                         }} />
                 }
                 <div className="top_bar">
