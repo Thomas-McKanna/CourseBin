@@ -209,10 +209,12 @@ def generate_content(submission_ids):
         files = ['HW0-10', 'All HW', 'Practice Test', 'Study Guide Test 1','Study Guide Test 1','Study Guide Test 3']
         files += ['HW ' + str(i) for i in range(1, 7)]
 
+        urls = ['5eb605178bffa6089a5d647a5ae85578', '60e999ba3e273ed36f6527f6cb7c7ecd', '8c025dde8ae6fb41ff1560a197ee198b']
+
         url_to_submissions = {}
         for id in submission_ids:
                 filename = files[randint(0, len(files)-1)].split('.')[0]
-                url = f'{filename}'
+                url = urls[randint(0, len(urls)-1)]
 
                 output = f"INSERT INTO content (submission_id, url, filename) VALUES ('{id}', '{url}', '{filename}');"
 
