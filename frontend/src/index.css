@@ -126,6 +126,12 @@ html {
     padding: 10px;
 }
 
+.welcome_message {
+    width: 40%;
+    border-style: dashed;
+    border-width: 1px;
+    padding: 10px;
+}
 
 
 

@@ -140,10 +140,12 @@ class Splash extends React.Component {
             <div>
                 <center>
                     <h2>Welcome to CourseBin!</h2>
-                    <p>Here you can search for content relating to the courses
-                        you are taking. You can also submit content of your own
-                        for others to download.
-                    </p>
+                    <div className="welcome_message">
+                        <p>Here you can search for content relating to the courses
+                            you are taking. You can also submit content of your own
+                            for others to download.
+                        </p>
+                    </div>
                     <button className="splash_button">
                         <Link to='/search/form'>Get Started!</Link>
                     </button>
