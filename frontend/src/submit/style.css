@@ -1,10 +1,10 @@
 .course_lookup {
-    width: 90%;
+    width: 95%;
     margin: 0 auto;
 }
 
 .submit_form {
-    width: 90%;
+    width: 95%;
     margin: 0 auto;
 }
 
@@ -18,11 +18,12 @@ h3 {
 }
 
 .submit_info {
-    background-color: rgb(255, 255, 255);
+    background-color: #ffffff;
     border-style: solid;
-    padding-left: 16px;
+    padding-left: 10px;
     border-width: 1px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 15px;
 }
 
 .remaining_chars {

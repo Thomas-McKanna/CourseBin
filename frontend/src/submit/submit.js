@@ -179,7 +179,7 @@ class Submit extends React.Component {
                 <div className="submit_info">
                     <h4>Course Title: {longName}</h4>
                     <h4>School: {this.state.courseInfo['school_name']}</h4>
-                    <h4>Happened: {this.state.courseInfo['semester']} {this.state.courseInfo['year']}</h4>
+                    <h4>Semester: {this.state.courseInfo['semester']} {this.state.courseInfo['year']}</h4>
                     <h4>Professor: {professor}</h4>
                 </div>
                 <form className="upload_form" onSubmit={this.handleSubmit}>
