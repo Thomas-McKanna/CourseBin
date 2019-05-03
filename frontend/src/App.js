@@ -140,9 +140,12 @@ class Splash extends React.Component {
             <div>
                 <center>
                     <h2>Welcome to CourseBin!</h2>
-                    <p>Here you can search for content relating to the courses
-                        you are taking. You can also submit content of your own
-                        for others to download.
+                    <p>CourseBin is the one stop spot for all of your college assignments.<br></br><br></br>
+                        Search for tests, homework, and quizzes<br></br>
+                        Upload your own materials from courses you have taken<br></br>
+                        Rate content uploaded by your peers<br></br><br></br>
+                        Join the network of students helping students!
+                        
                     </p>
                     <button className="splash_button">
                         <Link to='/search/form'>Get Started!</Link>

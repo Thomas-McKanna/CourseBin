@@ -36,18 +36,21 @@ html {
   background-color: #000000;
 }
 
+#outer_body {
+  height: 130%;
+  background-image: url("./images/pipes.png");
+  background-size: 10%;
+  background-repeat: repeat repeat;
+}
+
 #inner_body {
   width: 75%;
+  height: auto;
   margin: 0 auto;
   background-color: #ffffff;
   border-style: solid;
-}
-
-#outer_body {
-  height: 100%;
-  background-image: url("./images/pipes.png");
-  background-size: 10%;
-  background-repeat: repeat;
+  margin-top: 20px;
+  padding-bottom: 20px;
 }
 
 #menu {

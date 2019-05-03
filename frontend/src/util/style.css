@@ -1,6 +1,6 @@
 .tip_box {
     background-color: #84eb76;
-    width: 40%;
+    width: auto;
     border-radius: 4px;
     border-style: solid;
     border-width: 1px;
@@ -41,8 +41,8 @@ hr {
     border-radius: 25px;
     border-style: solid;
     border-width: 1px;
-    padding-right: 55px;
-    padding-left: 5px;
+    padding-right: 8px;
+    padding-left: 6px;
 }
 
 .input input, select {
