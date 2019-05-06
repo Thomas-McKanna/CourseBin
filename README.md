@@ -4,6 +4,21 @@ Cole Dieckhaus, Sierra Madrid, Thomas McKanna
 
 # CS 2300 Course Project - Coursebin
 
+## How to Run
+
+### Prerequisites
+
+* Node.js
+* MySQL Server
+
+### Initializing the Database
+
+Use the script `db_creation_script.sql` in the `mysql_scripts` folder to create the database schema. Then, you can optionally run the script `sample.sql` in the `datagen` folder to fill the database with sample data. Importantly, the password for the database should be "password" - the backend will need this to be the case in order to work. If you want to change the password, you can do so in the config folder of the backend.
+
+### Run the Servers
+
+Two node servers will need to be run at the same time. First, make sure that the dependencies for the servers have been installed. Go to the frontend folder and type `npm install`. After it finishes, go to the backend server and type `npm install`. Now the servers are ready to be started. Go to the frontend folder and type `npm start`. Then, open another terminal and go to the backend folder and type `npm run dev`. Your browser should automatically open up to the now running website (if it does not, you can manually go to localhost:3000).
+
 ## Problem statement
 
 It can be frustrating to get stuck on a homework assignment when there are no 
