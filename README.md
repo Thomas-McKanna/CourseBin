@@ -17,7 +17,7 @@ Use the script `db_creation_script.sql` in the `mysql_scripts` folder to create 
 
 ### Run the Servers
 
-Two node servers will need to be run at the same time. First, make sure that the dependencies for the servers have been installed. Go to the frontend folder and type `npm install`. After it finishes, go to the backend server and type `npm install`. Now the servers are ready to be started. Go to the frontend folder and type `npm start`. Then, open another terminal and go to the backend folder and type `npm run dev`. Your browser should automatically open up to the now running website (if it does not, you can manually go to localhost:3000).
+Two node servers will need to be running at the same time. First, make sure that the dependencies for the servers have been installed. Go to the frontend folder and type `npm install`. After it finishes, go to the backend server and type `npm install`. Now the servers are ready to be started. Go to the frontend folder and type `npm start`. Then, open another terminal and go to the backend folder and type `npm run dev`. Your browser should automatically open up to the now running website (if it does not, you can manually go to localhost:3000).
 
 ## Problem statement
 
@@ -169,7 +169,7 @@ The follwing flowchart lays out how creating submissions will be executed by the
 3. <s>Create MySQL schema creation script</s> 
 4. <s>Write out the structure of the SQL queries that will be used</s> 
 5. <s>Implement Express API for executing the queries of step 4.</s> 
-6. Implement React frontend.
+6. <s>Implement React frontend.</s>
 
 ## Resources
 
