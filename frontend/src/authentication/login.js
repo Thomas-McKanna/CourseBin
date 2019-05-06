@@ -74,6 +74,7 @@ class Login extends React.Component {
                         handleFunc={this.handleUsernameChange}/>
                     <FormField
                         input
+                        password
                         label="Password"
                         placeholder=""
                         css_class="input"

@@ -69,7 +69,11 @@ class FormField extends React.Component {
         }
 
         if (this.props.input) {
-            input = <input type="text" placeholder={thePlaceholder} onChange={this.props.handleFunc} />
+            if (this.props.password != undefined) {
+                input = <input type="password" placeholder={thePlaceholder} onChange={this.props.handleFunc} />
+            } else {
+                input = <input type="text" placeholder={thePlaceholder} onChange={this.props.handleFunc} />
+            } 
         } 
 
         if (this.props.radio) {

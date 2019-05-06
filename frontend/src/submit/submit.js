@@ -30,7 +30,7 @@ class Submit extends React.Component {
 
     componentDidMount() {
         var self = this; // bind "this" so that callbacks can use it
-        axios.get('/api/v1/submissions/' + this.props.match.params['id'])
+        axios.get('/api/v1/courses/' + this.props.match.params['id'])
         .then(function(response) {
             if (response.status === 200) {
                 self.setState({ courseInfo: response.data.result[0]})
